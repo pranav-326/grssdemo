@@ -9,53 +9,41 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        space: {
-          950: "#020408",
-          900: "#050B14",
-          850: "#091220",
-          800: "#0E1A2D",
-          700: "#172844",
-        },
-        ndvi: {
-          neon: "#00FF66",
-          bright: "#22E576",
-          emerald: "#10B981",
-          dark: "#052e16",
-          glow: "rgba(0, 255, 102, 0.4)",
-        },
-        radar: {
-          amber: "#FFB020",
-          cyan: "#00E5FF",
-          red: "#FF3366",
+        vanilla: "#f0ead2",
+        tea: "#dde5b6",
+        olive: "#adc178",
+        copper: "#a98467",
+        ash: "#6c584c",
+        earth: {
+          950: "#0d0b09",
+          900: "#15120f",
+          850: "#1d1916",
+          800: "#292420",
+          700: "#3d3630",
+          600: "#554c44",
         },
       },
       fontFamily: {
-        sans: ["'Space Grotesk'", "Inter", "-apple-system", "sans-serif"],
+        sans: ["'Nunito'", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
+        serif: ["'Roboto Serif'", "Georgia", "'Times New Roman'", "serif"],
+        display: ["'Roboto Serif'", "Georgia", "serif"],
+        heading: ["'Roboto Serif'", "Georgia", "serif"],
         mono: ["'JetBrains Mono'", "SFMono-Regular", "Menlo", "Courier New", "monospace"],
-        display: ["'Orbitron'", "'Space Grotesk'", "sans-serif"],
-      },
-      animation: {
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "spin-slow": "spin 20s linear infinite",
-        "ping-slow": "ping 3s cubic-bezier(0, 0, 0.2, 1) infinite",
-        "scan-line": "scanline 6s linear infinite",
-        "radar-sweep": "radarSweep 4s linear infinite",
-        "glitch": "glitch 1.5s infinite",
       },
       keyframes: {
-        scanline: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(1000%)" },
-        },
-        radarSweep: {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(360deg)" },
+        narrationIn: {
+          "0%": { opacity: "0", transform: "translateX(-16px)", filter: "blur(2px)" },
+          "100%": { opacity: "1", transform: "translateX(0)", filter: "blur(0)" },
         },
       },
+      animation: {
+        "narration-in": "narrationIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "spin-slow": "spin 24s linear infinite",
+      },
       boxShadow: {
-        "neon-green": "0 0 20px -3px rgba(0, 255, 102, 0.5), 0 0 8px -2px rgba(0, 255, 102, 0.3)",
-        "neon-cyan": "0 0 20px -3px rgba(0, 229, 255, 0.5), 0 0 8px -2px rgba(0, 229, 255, 0.3)",
-        "hud-card": "0 8px 32px 0 rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(0, 255, 102, 0.2)",
+        "earth-card": "0 12px 36px -12px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(169, 132, 103, 0.18)",
+        "earth-subtle": "0 8px 24px -8px rgba(0, 0, 0, 0.5)",
       },
     },
   },

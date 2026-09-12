@@ -1,75 +1,63 @@
 "use client";
 
 import React from "react";
-import { Crosshair, Scan, Target, CheckCircle2, Zap } from "lucide-react";
+import { MapPin, Compass, CheckCircle2 } from "lucide-react";
 
 interface TargetReticleProps {
   opacity: number; // 0 to 1 based on scroll progress
   locked?: boolean;
 }
 
-export const TargetReticle: React.FC<TargetReticleProps> = ({ opacity, locked = true }) => {
+export const TargetReticle: React.FC<TargetReticleProps> = ({ opacity }) => {
   if (opacity <= 0.05) return null;
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300 z-20"
+      className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500 z-20"
       style={{ opacity }}
     >
-      {/* Central Targeting Reticle Frame */}
+      {/* Central Cartographic Survey Reticle */}
       <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
         
-        {/* Outer Rotating Degree Ring */}
-        <div className="absolute inset-0 rounded-full border border-dashed border-ndvi-neon/40 animate-spin-slow" />
+        {/* Outer Compass / Coordinate Ring */}
+        <div className="absolute inset-0 rounded-full border border-copper/30 animate-spin-slow" />
         
-        {/* Secondary Counter-rotating Ring */}
-        <div 
-          className="absolute inset-4 rounded-full border border-dotted border-radar-cyan/40"
-          style={{ animation: "spin 12s linear infinite reverse" }}
-        />
+        {/* Fine Inner Dotted Circle */}
+        <div className="absolute inset-4 rounded-full border border-dashed border-tea/25" />
 
-        {/* Pulse radar sweep */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-ndvi-neon/10 via-transparent to-transparent animate-radar-sweep rounded-full" />
+        {/* 4 Subtle Corner Framing Guides */}
+        <div className="absolute -top-2 -left-2 w-6 h-6 border-t border-l border-copper/60" />
+        <div className="absolute -top-2 -right-2 w-6 h-6 border-t border-r border-copper/60" />
+        <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b border-l border-copper/60" />
+        <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b border-r border-copper/60" />
 
-        {/* 4 Corner Targeting Brackets */}
-        <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-ndvi-neon text-glow-green" />
-        <div className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-ndvi-neon text-glow-green" />
-        <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-ndvi-neon text-glow-green" />
-        <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-ndvi-neon text-glow-green" />
+        {/* Center Fine Hairline Crosshairs */}
+        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-copper/40 to-transparent" />
+        <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-copper/40 to-transparent" />
 
-        {/* Center Crosshairs */}
-        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-ndvi-neon/60 to-transparent" />
-        <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-ndvi-neon/60 to-transparent" />
-
-        {/* Center Target Dot with Ping Ring */}
+        {/* Center Target Dot with Subtle Pulsing Ring */}
         <div className="relative flex items-center justify-center">
-          <div className="w-4 h-4 rounded-full bg-ndvi-neon shadow-neon-green" />
-          <div className="absolute w-12 h-12 rounded-full border border-ndvi-neon animate-ping-slow" />
-          <div className="absolute w-24 h-24 rounded-full border border-ndvi-neon/30 animate-radar-pulse" />
+          <div className="w-3 h-3 rounded-full bg-olive shadow-earth-subtle" />
+          <div className="absolute w-10 h-10 rounded-full border border-olive/40 animate-pulse-slow" />
         </div>
 
-        {/* Target Meta Data Labels - Top Right */}
-        <div className="absolute -top-10 -right-24 md:-right-36 bg-space-950/85 backdrop-blur-md border border-ndvi-neon/50 px-3 py-1.5 rounded text-[10px] font-mono text-slate-200 shadow-hud-card">
-          <div className="flex items-center gap-1.5 text-ndvi-neon font-bold">
-            <CheckCircle2 className="w-3 h-3 text-ndvi-neon" />
-            <span>FIELD TARGET ACQUIRED</span>
+        {/* Cartographic Location Card - Top Right */}
+        <div className="absolute -top-12 -right-16 md:-right-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-sans text-vanilla/90 shadow-earth-card">
+          <div className="flex items-center gap-1.5 text-tea font-serif font-bold">
+            <CheckCircle2 className="w-3.5 h-3.5 text-olive" />
+            <span>Field Study Site</span>
           </div>
-          <div className="text-slate-300">CAUVERY BASIN #0492</div>
-          <div className="text-radar-cyan text-[9px]">CROP: SUGARCANE & PADDY</div>
+          <div className="text-[10px] text-vanilla/70 font-mono mt-0.5">Mysuru Agro-Ecological Basin</div>
         </div>
 
-        {/* Target Meta Data Labels - Bottom Left */}
-        <div className="absolute -bottom-10 -left-24 md:-left-36 bg-space-950/85 backdrop-blur-md border border-radar-cyan/50 px-3 py-1.5 rounded text-[10px] font-mono text-slate-200 shadow-hud-card">
-          <div className="text-radar-cyan font-bold flex items-center gap-1">
-            <Zap className="w-3 h-3" />
-            <span>SPECTRAL SCAN: 0.74 NDVI</span>
+        {/* Geodetic Coordinates - Bottom Left */}
+        <div className="absolute -bottom-12 -left-16 md:-left-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-mono text-tea/90 shadow-earth-card">
+          <div className="text-copper font-serif font-semibold flex items-center gap-1 text-[11px]">
+            <Compass className="w-3 h-3 text-copper" />
+            <span>12.4042° N, 76.6433° E</span>
           </div>
-          <div className="text-slate-300">12.4042° N, 76.6433° E</div>
-          <div className="text-ndvi-neon text-[9px]">RESOLUTION: 0.3m ULTRA-RES</div>
+          <div className="text-[10px] text-vanilla/60 mt-0.5">Elevation: ~670m MSL</div>
         </div>
-
-        {/* Scanning Grid Laser Line */}
-        <div className="absolute inset-x-0 h-0.5 bg-ndvi-neon/80 shadow-neon-green animate-scan-line" />
       </div>
     </div>
   );

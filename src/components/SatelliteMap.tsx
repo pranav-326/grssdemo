@@ -137,9 +137,9 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
         type: "line",
         source: "agri-target-poly",
         paint: {
-          "line-color": "#00FF66",
-          "line-width": 2,
-          "line-dasharray": [2, 2],
+          "line-color": "#adc178",
+          "line-width": 1.5,
+          "line-dasharray": [3, 2],
         },
       });
 
@@ -149,8 +149,8 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
         type: "fill",
         source: "agri-target-poly",
         paint: {
-          "fill-color": "#00FF66",
-          "fill-opacity": 0.12,
+          "fill-color": "#adc178",
+          "fill-opacity": 0.14,
         },
       });
     });
@@ -238,7 +238,7 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-0 bg-space-950 transition-[filter] duration-500 ${
+      className={`fixed inset-0 z-0 bg-earth-950 transition-[filter] duration-500 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}
       style={{ filter: getFilterStyle() }}
@@ -249,13 +249,13 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
           mapReady ? "opacity-0" : "opacity-100"
         }`}
         style={{
-          background: "radial-gradient(ellipse at 50% 60%, rgba(10, 35, 65, 0.7) 0%, rgba(2, 4, 8, 0.95) 70%, #020408 100%)"
+          background: "radial-gradient(ellipse at 50% 60%, rgba(35, 30, 25, 0.7) 0%, rgba(13, 11, 9, 0.95) 70%, #0d0b09 100%)"
         }}
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40">
-          <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-ndvi-neon/30 animate-ping-slow" />
-          <span className="text-[10px] font-mono text-ndvi-neon tracking-widest uppercase mt-4 animate-pulse">
-            // SENSORS CONNECTING TO SATELLITE FEED...
+          <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-copper/30 animate-pulse-slow" />
+          <span className="text-[10px] font-mono text-tea tracking-widest uppercase mt-4">
+            Earth Observation Feed Initializing...
           </span>
         </div>
       </div>
