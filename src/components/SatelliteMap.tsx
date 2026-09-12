@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import maplibregl, { Map as MapLibreMap } from "maplibre-gl";
 
 interface SatelliteMapProps {
@@ -53,10 +53,16 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const isLoadedRef = useRef<boolean>(false);
+  const [mapReady, setMapReady] = useState<boolean>(false);
 
   // Initialize MapLibre GL instance
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
+
+    // Enable high parallel downloads for raster tiles on mobile connections
+    if (typeof maplibregl.setMaxParallelImageRequests === "function") {
+      maplibregl.setMaxParallelImageRequests(32);
+    }
 
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
@@ -89,10 +95,12 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
       interactive: isInteractive,
       attributionControl: false,
       renderWorldCopies: true,
+      fadeDuration: 0, // Instant tile display without 300ms transition lag
     });
 
     map.on("load", () => {
       isLoadedRef.current = true;
+      setMapReady(true);
 
       // Add a subtle agro-boundary highlight polygon around the Mysuru target fields
       map.addSource("agri-target-poly", {
@@ -230,12 +238,34 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 z-0 transition-[filter] duration-500 ${
+      className={`fixed inset-0 z-0 bg-space-950 transition-[filter] duration-500 ${
         isInteractive ? "pointer-events-auto" : "pointer-events-none"
       }`}
       style={{ filter: getFilterStyle() }}
     >
-      <div ref={mapContainerRef} className="w-full h-full" />
+      {/* Instant orbital atmosphere glow before WebGL tiles arrive */}
+      <div 
+        className={`absolute inset-0 transition-opacity duration-700 pointer-events-none ${
+          mapReady ? "opacity-0" : "opacity-100"
+        }`}
+        style={{
+          background: "radial-gradient(ellipse at 50% 60%, rgba(10, 35, 65, 0.7) 0%, rgba(2, 4, 8, 0.95) 70%, #020408 100%)"
+        }}
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40">
+          <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-ndvi-neon/30 animate-ping-slow" />
+          <span className="text-[10px] font-mono text-ndvi-neon tracking-widest uppercase mt-4 animate-pulse">
+            // SENSORS CONNECTING TO SATELLITE FEED...
+          </span>
+        </div>
+      </div>
+
+      <div 
+        ref={mapContainerRef} 
+        className={`w-full h-full transition-opacity duration-500 ${
+          mapReady ? "opacity-100" : "opacity-0"
+        }`} 
+      />
     </div>
   );
 };
