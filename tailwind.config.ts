@@ -24,11 +24,22 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["'Nunito'", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
-        serif: ["'Roboto Serif'", "Georgia", "'Times New Roman'", "serif"],
-        display: ["'Roboto Serif'", "Georgia", "serif"],
-        heading: ["'Roboto Serif'", "Georgia", "serif"],
+        sans: ["'Helvetica Neue'", "Helvetica", "Arial", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
+        serif: ["'Playfair Display'", "Georgia", "'Times New Roman'", "serif"],
+        display: ["'Playfair Display'", "Georgia", "serif"],
+        heading: ["'Playfair Display'", "Georgia", "serif"],
+        subheading: ["'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        quote: ["'Playfair Display'", "Georgia", "serif"],
         mono: ["'JetBrains Mono'", "SFMono-Regular", "Menlo", "Courier New", "monospace"],
+      },
+      letterSpacing: {
+        tightest: "-0.035em",
+        tighter: "-0.025em",
+        tight: "-0.015em",
+        normal: "-0.01em",
+        wide: "-0.01em",
+        wider: "-0.015em",
+        widest: "-0.02em",
       },
       keyframes: {
         narrationIn: {

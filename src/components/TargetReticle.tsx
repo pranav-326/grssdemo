@@ -42,21 +42,21 @@ export const TargetReticle: React.FC<TargetReticleProps> = ({ opacity }) => {
         </div>
 
         {/* Cartographic Location Card - Top Right */}
-        <div className="absolute -top-12 -right-16 md:-right-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-sans text-vanilla/90 shadow-earth-card">
-          <div className="flex items-center gap-1.5 text-tea font-serif font-bold">
+        <div className="absolute -top-12 -right-16 md:-right-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-sans font-normal tracking-tight text-vanilla/90 shadow-earth-card">
+          <div className="flex items-center gap-1.5 text-tea font-subheading font-bold tracking-tight">
             <CheckCircle2 className="w-3.5 h-3.5 text-olive" />
             <span>Field Study Site</span>
           </div>
-          <div className="text-[10px] text-vanilla/70 font-mono mt-0.5">Mysuru Agro-Ecological Basin</div>
+          <div className="text-[10px] text-vanilla/70 font-mono tracking-tight mt-0.5">Mysuru Agro-Ecological Basin</div>
         </div>
 
         {/* Geodetic Coordinates - Bottom Left */}
-        <div className="absolute -bottom-12 -left-16 md:-left-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-mono text-tea/90 shadow-earth-card">
-          <div className="text-copper font-serif font-semibold flex items-center gap-1 text-[11px]">
+        <div className="absolute -bottom-12 -left-16 md:-left-28 bg-earth-900/80 backdrop-blur-md border border-copper/30 px-3 py-2 rounded-xl text-[11px] font-mono tracking-tight text-tea/90 shadow-earth-card">
+          <div className="text-copper font-subheading font-bold flex items-center gap-1 text-[11px] tracking-tight">
             <Compass className="w-3 h-3 text-copper" />
             <span>12.4042° N, 76.6433° E</span>
           </div>
-          <div className="text-[10px] text-vanilla/60 mt-0.5">Elevation: ~670m MSL</div>
+          <div className="text-[10px] text-vanilla/60 mt-0.5 tracking-tight">Elevation: ~670m MSL</div>
         </div>
       </div>
     </div>

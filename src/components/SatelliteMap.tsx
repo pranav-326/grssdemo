@@ -320,7 +320,7 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40">
           <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-copper/30 animate-pulse-slow" />
-          <span className="text-[10px] font-mono text-tea tracking-widest uppercase mt-4">
+          <span className="text-[10px] font-mono text-tea tracking-tight uppercase mt-4">
             Earth Observation Feed Initializing...
           </span>
         </div>
