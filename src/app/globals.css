@@ -95,6 +95,29 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 
+/* Left-to-right gradient text reveal sweep */
+.text-reveal-left {
+  background: linear-gradient(
+    90deg,
+    var(--vanilla-cream) 0%,
+    var(--tea-green) 50%,
+    rgba(221, 229, 182, 0.2) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textWipeSweep 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes textWipeSweep {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0% 0;
+  }
+}
+
 /* Elegant Editorial Copper Dividers */
 .copper-rule {
   height: 1px;

@@ -3,18 +3,34 @@
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { TargetReticle } from "@/components/TargetReticle";
-import { RegistrationModal } from "@/components/RegistrationModal";
+import { 
+  NarrationTyping, 
+  NarrationWords, 
+  NarrationLine 
+} from "@/components/NarrationText";
 import { 
   ChevronDown, 
   Globe, 
   Award, 
-  CheckCircle2,
-  HelpCircle,
-  ArrowRight,
-  BookOpen,
+  CheckCircle2, 
+  HelpCircle, 
+  ArrowRight, 
   Calendar,
-  Compass
+  Menu,
+  X
 } from "lucide-react";
+
+// Registration link destination (Google Form / Portal)
+const REGISTRATION_URL = "https://forms.gle/nie-grss-registration";
+
+// Institutional Logos in the navbar
+const INSTITUTIONAL_LOGOS = [
+  { src: "/logos/logo-4.png", alt: "The National Institute of Engineering, Mysuru" },
+  { src: "/logos/logo-3.png", alt: "IEEE" },
+  { src: "/logos/logo-2.png", alt: "IEEE GRSS" },
+  { src: "/logos/logo-5.png", alt: "NISB Student Branch" },
+  { src: "/logos/logo-1.png", alt: "NISB GRSS Chapter" },
+];
 
 // Dynamic import for SatelliteMap to prevent SSR canvas issues
 const SatelliteMap = dynamic(
@@ -42,13 +58,14 @@ const SatelliteMap = dynamic(
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPastHero, setIsPastHero] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const isInteractive = false;
   const spectralMode = "rgb";
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Track scroll progress smoothly across the scroll track
+  // Track scroll progress smoothly across the scroll track & detect when hero leaves view
   useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -56,6 +73,7 @@ export default function Home() {
       const current = window.scrollY;
       const progress = Math.min(1, Math.max(0, current / totalScroll));
       setScrollProgress(progress);
+      setIsPastHero(current > window.innerHeight * 0.65);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -70,6 +88,159 @@ export default function Home() {
       suppressHydrationWarning
       className="relative bg-earth-950 text-vanilla overflow-x-clip selection:bg-olive selection:text-earth-950 font-sans"
     >
+      {/* ================= TOP NAVIGATION BAR (Hides after Hero) ================= */}
+      <header
+        suppressHydrationWarning
+        className={`fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-copper/30 shadow-2xl transition-all duration-500 ease-in-out ${
+          isPastHero
+            ? "-translate-y-full opacity-0 pointer-events-none"
+            : "translate-y-0 opacity-100 pointer-events-auto"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          {/* Event Brand: GRSS School (Bigger) & Subheading */}
+          <div className="flex flex-col text-center md:text-left">
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-vanilla tracking-tight leading-none">
+              GRSS School
+            </span>
+            <span className="text-[10px] sm:text-xs md:text-sm font-serif text-tea tracking-wide leading-tight pt-1 max-w-lg">
+              on GeoIntelligence for Sustainable Precision Agriculture
+            </span>
+          </div>
+
+          {/* Institutional Logos (Bigger, High Visibility, Transparent without boxes) */}
+          <div className="flex items-center justify-center flex-wrap gap-3 sm:gap-4 md:gap-6">
+            {INSTITUTIONAL_LOGOS.map((logo, idx) => (
+              <div
+                key={idx}
+                className="h-10 sm:h-12 md:h-14 flex items-center justify-center transition-all duration-300 hover:scale-105"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-full w-auto object-contain max-h-9 sm:max-h-11 md:max-h-12 drop-shadow-sm"
+                />
+              </div>
+            ))}
+
+            {/* Quick Register CTA Button in Navbar */}
+            <a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 px-4 py-2.5 rounded-lg bg-olive text-earth-950 font-serif font-bold text-xs sm:text-sm tracking-wide shadow-earth-card hover:bg-tea transition-all flex items-center gap-1.5 no-underline"
+            >
+              <span>Register</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+        </div>
+      </header>
+
+      {/* ================= TINY CORNER MENU (Appears after Hero disappears) ================= */}
+      <div
+        suppressHydrationWarning
+        className={`fixed top-5 right-5 sm:top-6 sm:right-8 z-50 transition-all duration-500 ease-out ${
+          isPastHero
+            ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
+            : "-translate-y-4 opacity-0 scale-95 pointer-events-none"
+        }`}
+      >
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-black/90 border border-copper/40 backdrop-blur-md text-tea hover:text-vanilla shadow-2xl hover:border-olive/60 transition-all duration-300 group"
+        >
+          {isMenuOpen ? (
+            <X className="w-4 h-4 text-tea group-hover:text-vanilla" />
+          ) : (
+            <Menu className="w-4 h-4 text-tea group-hover:text-vanilla" />
+          )}
+          <span className="text-xs font-serif font-medium tracking-wider uppercase text-tea group-hover:text-vanilla">
+            Menu
+          </span>
+        </button>
+
+        {/* Dropdown Floating Menu */}
+        {isMenuOpen && (
+          <div className="absolute right-0 mt-3 w-72 sm:w-80 rounded-2xl bg-black/95 border border-copper/35 backdrop-blur-xl p-5 shadow-2xl space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="flex items-center justify-between border-b border-copper/25 pb-3">
+              <div>
+                <div className="font-serif font-bold text-sm text-vanilla">GRSS School</div>
+                <div className="text-[10px] font-serif text-tea">GeoIntelligence in Agriculture</div>
+              </div>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-1 rounded-md text-tea/70 hover:text-vanilla hover:bg-white/10 transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Quick Section Links */}
+            <nav className="flex flex-col space-y-1 text-left font-serif text-sm">
+              <a
+                href="#about"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-tea hover:text-vanilla hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <Globe className="w-3.5 h-3.5 text-olive" />
+                <span>About NIE &amp; NISB–GRSS</span>
+              </a>
+              <a
+                href="#schedule"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-tea hover:text-vanilla hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <Calendar className="w-3.5 h-3.5 text-olive" />
+                <span>The Schedule (3 Days)</span>
+              </a>
+              <a
+                href="#speakers"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-tea hover:text-vanilla hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <Award className="w-3.5 h-3.5 text-olive" />
+                <span>The Speakers</span>
+              </a>
+              <a
+                href="#register"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-tea hover:text-vanilla hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-olive" />
+                <span>Registration</span>
+              </a>
+            </nav>
+
+            {/* Direct Register Action in Menu */}
+            <div className="pt-2 border-t border-copper/20">
+              <a
+                href={REGISTRATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-4 rounded-xl bg-olive text-earth-950 font-serif font-bold text-xs tracking-wide shadow-earth-card hover:bg-tea transition-all flex items-center justify-center gap-2 no-underline"
+              >
+                <span>Register Now</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            {/* Miniature Logos Row inside Menu */}
+            <div className="pt-2 flex items-center justify-center gap-3 border-t border-copper/15">
+              {INSTITUTIONAL_LOGOS.map((logo, idx) => (
+                <div key={idx} className="h-6 w-8 flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity">
+                  <img src={logo.src} alt={logo.alt} className="max-h-full max-w-full object-contain drop-shadow-sm" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* ================= BACKGROUND SATELLITE MAP ================= */}
       <SatelliteMap
         scrollProgress={scrollProgress}
@@ -89,52 +260,83 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 1: INTRO (Space View)                                      */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="min-h-screen flex flex-col justify-center items-center text-center space-y-8 pt-8">
-          
-          {/* Institutional Badge */}
-          <div suppressHydrationWarning className="narration-fade-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-earth-900/80 border border-copper/30 backdrop-blur-md shadow-earth-subtle">
-            <span className="h-2 w-2 rounded-full bg-olive animate-pulse" />
-            <span className="text-xs font-serif font-medium text-tea tracking-widest uppercase">
-              NISB–GRSS Chapter Presents
-            </span>
-          </div>
+        <section suppressHydrationWarning className="min-h-screen flex flex-col justify-center items-center text-center space-y-6 pt-28 sm:pt-36 md:pt-40">
 
-          {/* Main Title */}
-          <h1 className="narration-fade-2 text-3xl sm:text-5xl md:text-6xl font-serif font-normal text-vanilla leading-tight max-w-3xl">
-            From the world above us, <br />
-            <span className="italic text-tea font-light">
-              to the fields beneath us.
-            </span>
-          </h1>
-
-          <div className="copper-rule w-32 md:w-48" />
-
-          {/* Narrative Paragraphs */}
-          <div suppressHydrationWarning className="narration-fade-3 max-w-2xl text-center space-y-5 text-vanilla/90 text-base md:text-lg leading-relaxed font-sans">
-            <p>
-              <strong className="text-vanilla font-serif font-semibold text-xl block mb-2">
-                The Earth has always been telling us a story.
-              </strong>
-              Every crop that grows, every drop of water that moves, every change in the soil leaves a trace across the planet, but what if we could see those changes from above?
-            </p>
-            <p className="text-sm md:text-base text-tea/90 leading-relaxed">
-              From acquiring data about the Earth to understanding crops and soil and finally using intelligence to manage water and irrigation, this event takes you from <span className="text-vanilla font-medium underline decoration-copper/50 underline-offset-4">observation to insight</span> and from <span className="text-vanilla font-medium underline decoration-olive/60 underline-offset-4">insight to action</span>.
-            </p>
+          {/* Hero Presentation Card with Black Semi-Transparent Background for High Contrast */}
+          <div suppressHydrationWarning className="w-full max-w-3xl bg-black/85 backdrop-blur-md border border-copper/30 rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl space-y-7 text-center">
             
-            <div suppressHydrationWarning className="pt-4 text-sm md:text-base font-serif font-medium text-tea border-t border-copper/20 tracking-wide">
-              Three days. One planet. A world of data waiting to be explored.
+            {/* Institutional Presentation Line */}
+            <div suppressHydrationWarning className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-earth-900/80 border border-copper/30 shadow-earth-subtle">
+              <span className="h-2 w-2 rounded-full bg-olive animate-pulse" />
+              <span className="text-xs font-serif font-medium text-tea tracking-widest uppercase">
+                NISB–GRSS Chapter Presents
+              </span>
             </div>
+
+            {/* Event Name in Hero: GRSS School (Bigger) & Subheading */}
+            <div className="space-y-1.5 pt-1">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-extrabold text-vanilla tracking-tight">
+                GRSS School
+              </h1>
+              <p className="text-sm sm:text-base md:text-lg font-serif text-tea italic tracking-wide max-w-xl mx-auto">
+                on GeoIntelligence for Sustainable Precision Agriculture
+              </p>
+            </div>
+
+            <div className="copper-rule w-32 md:w-48 mx-auto" />
+
+            {/* Narrative Theme Hook with Left-to-Right Narration Typing */}
+            <div className="text-2xl sm:text-3xl md:text-4xl font-serif font-normal text-vanilla leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              <NarrationTyping text="From the world above us," delay={200} speed={36} />
+              <br />
+              <span className="italic text-tea font-light">
+                <NarrationTyping text="to the fields beneath us." delay={1200} speed={36} />
+              </span>
+            </div>
+
+            <div className="copper-rule w-24 md:w-36 mx-auto opacity-60" />
+
+            {/* Narrative Paragraphs */}
+            <div suppressHydrationWarning className="max-w-2xl mx-auto text-center space-y-5 text-vanilla/95 text-base md:text-lg leading-relaxed font-sans">
+              <NarrationLine delay={200}>
+                <p>
+                  <strong className="text-vanilla font-serif font-semibold text-xl block mb-2">
+                    The Earth has always been telling us a story.
+                  </strong>
+                  Every crop that grows, every drop of water that moves, every change in the soil leaves a trace across the planet, but what if we could see those changes from above?
+                </p>
+              </NarrationLine>
+
+              <NarrationLine delay={350}>
+                <p className="text-sm md:text-base text-tea/95 leading-relaxed">
+                  From acquiring data about the Earth to understanding crops and soil and finally using intelligence to manage water and irrigation, this event takes you from <span className="text-vanilla font-medium underline decoration-copper/50 underline-offset-4">observation to insight</span> and from <span className="text-vanilla font-medium underline decoration-olive/60 underline-offset-4">insight to action</span>.
+                </p>
+              </NarrationLine>
+              
+              <NarrationLine delay={500}>
+                <div suppressHydrationWarning className="pt-4 text-sm md:text-base font-serif font-medium text-tea border-t border-copper/20 tracking-wide">
+                  Three days. One planet. A world of data waiting to be explored.
+                </div>
+              </NarrationLine>
+            </div>
+
+            <p className="text-xs md:text-sm font-sans text-copper italic max-w-lg mx-auto pt-2">
+              <NarrationWords
+                text="Our journey begins at the place where engineers learn to turn possibilities into reality."
+                delay={600}
+                staggerMs={30}
+              />
+            </p>
+
           </div>
 
-          <p className="narration-fade-4 text-xs md:text-sm font-sans text-copper italic">
-            Our journey begins at the place where engineers learn to turn possibilities into reality.
-          </p>
-
-          <div suppressHydrationWarning className="pt-10 flex flex-col items-center gap-2 text-tea/80">
-            <span className="text-[11px] font-serif tracking-widest uppercase">
-              Scroll to Descend
-            </span>
-            <ChevronDown className="w-4 h-4 text-copper animate-bounce" />
+          <div suppressHydrationWarning className="pt-4 flex flex-col items-center gap-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/75 border border-copper/25 backdrop-blur-sm shadow-sm">
+              <span className="text-[11px] font-serif text-tea tracking-widest uppercase">
+                Scroll to Descend
+              </span>
+              <ChevronDown className="w-3.5 h-3.5 text-copper animate-bounce" />
+            </div>
           </div>
 
         </section>
@@ -142,7 +344,7 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 2: ABOUT NIE & ABOUT NISB-GRSS                             */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="space-y-12">
+        <section id="about" suppressHydrationWarning className="space-y-12 scroll-mt-24">
           
           {/* About NIE */}
           <div suppressHydrationWarning className="bg-earth-900/60 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-copper/25 shadow-earth-card space-y-4 text-left">
@@ -151,7 +353,7 @@ export default function Home() {
               <span>About NIE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif text-vanilla">
-              The National Institute of Engineering
+              <NarrationTyping text="The National Institute of Engineering" delay={150} speed={25} />
             </h2>
             <div className="copper-rule w-24 my-2" />
             <p className="text-sm md:text-base text-vanilla/90 leading-relaxed font-sans">
@@ -166,7 +368,7 @@ export default function Home() {
               <span>About NISB–GRSS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif text-vanilla">
-              NIE IEEE Student Branch — GRSS
+              <NarrationTyping text="NIE IEEE Student Branch — GRSS" delay={200} speed={25} />
             </h2>
             <div className="copper-rule w-24 my-2" />
             <p className="text-sm md:text-base text-vanilla/90 leading-relaxed font-sans">
@@ -182,20 +384,24 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 3: THE SCHEDULE (Three Days)                               */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="space-y-10">
+        <section id="schedule" suppressHydrationWarning className="space-y-10 scroll-mt-24">
           
           <div suppressHydrationWarning className="text-center space-y-3">
             <span className="text-xs font-serif text-tea tracking-widest uppercase">
               Event Itinerary
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif text-vanilla">
-              The Schedule
+              <NarrationTyping text="The Schedule" delay={100} speed={35} />
             </h2>
             <p className="text-base font-serif italic text-tea/90">
-              Three Days. Three Perspectives. Three Leaps.
+              <NarrationWords text="Three Days. Three Perspectives. Three Leaps." staggerMs={28} delay={200} />
             </p>
             <p className="text-xs sm:text-sm text-copper font-sans max-w-lg mx-auto">
-              The journey unfolds in three stages — from seeing the Earth, to understanding it, to making smarter decisions for it.
+              <NarrationWords
+                text="The journey unfolds in three stages — from seeing the Earth, to understanding it, to making smarter decisions for it."
+                staggerMs={20}
+                delay={350}
+              />
             </p>
             <div className="copper-rule w-32 mx-auto pt-2" />
           </div>
@@ -214,10 +420,10 @@ export default function Home() {
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-serif text-vanilla">
-                See the Earth Differently
+                <NarrationTyping text="See the Earth Differently" delay={100} speed={25} />
               </h3>
               <div suppressHydrationWarning className="text-xs font-serif text-tea italic">
-                Geospatial Data Acquisition &amp; Earth Observation
+                <NarrationWords text="Geospatial Data Acquisition & Earth Observation" delay={200} staggerMs={20} />
               </div>
               <p className="text-sm text-vanilla/90 leading-relaxed font-sans">
                 Begin with <strong className="text-vanilla font-serif">Geo-AI for Precision Agriculture</strong>, bringing together satellite, UAV, and field-based observations.
@@ -242,10 +448,10 @@ export default function Home() {
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-serif text-vanilla">
-                Read What the Land Reveals
+                <NarrationTyping text="Read What the Land Reveals" delay={100} speed={25} />
               </h3>
               <div suppressHydrationWarning className="text-xs font-serif text-tea italic">
-                Geo-AI for Crop &amp; Soil Assessment
+                <NarrationWords text="Geo-AI for Crop & Soil Assessment" delay={200} staggerMs={20} />
               </div>
               <p className="text-sm text-vanilla/90 leading-relaxed font-sans">
                 Go deeper with <strong className="text-vanilla font-serif">machine learning and deep learning</strong> for crop classification and agricultural monitoring.
@@ -270,10 +476,10 @@ export default function Home() {
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-serif text-vanilla">
-                Turn Intelligence into Action
+                <NarrationTyping text="Turn Intelligence into Action" delay={100} speed={25} />
               </h3>
               <div suppressHydrationWarning className="text-xs font-serif text-tea italic">
-                Geo-AI for Water Management &amp; Precision Irrigation
+                <NarrationWords text="Geo-AI for Water Management & Precision Irrigation" delay={200} staggerMs={20} />
               </div>
               <p className="text-sm text-vanilla/90 leading-relaxed font-sans">
                 Explore AI-driven approaches to <strong className="text-vanilla font-serif">agricultural drought, crop water stress, and irrigation management.</strong>
@@ -293,16 +499,16 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 4: THE SPEAKERS                                           */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="bg-earth-900/60 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-copper/25 shadow-earth-card space-y-5 text-left">
+        <section id="speakers" suppressHydrationWarning className="bg-earth-900/60 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-copper/25 shadow-earth-card space-y-5 text-left scroll-mt-24">
           <div suppressHydrationWarning className="space-y-2">
             <span className="text-xs font-serif text-tea tracking-widest uppercase">
               Academic Faculty &amp; Practitioners
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif text-vanilla">
-              The Speakers
+              <NarrationTyping text="The Speakers" delay={100} speed={35} />
             </h2>
             <p className="text-sm font-serif italic text-tea/90">
-              Learn from those shaping the future of Earth observation.
+              <NarrationWords text="Learn from those shaping the future of Earth observation." delay={200} staggerMs={25} />
             </p>
           </div>
           
@@ -317,7 +523,11 @@ export default function Home() {
           </p>
 
           <div suppressHydrationWarning className="pt-3 text-xs font-serif italic text-copper border-t border-copper/15">
-            Meet the minds behind the journey.
+            <NarrationWords 
+              text="Meet the minds behind the journey." 
+              delay={300} 
+              staggerMs={25} 
+            />
           </div>
         </section>
 
@@ -326,7 +536,7 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         <section suppressHydrationWarning className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          <div suppressHydrationWarning className="bg-earth-900/40 backdrop-blur-md p-8 rounded-2xl border border-copper/20 space-y-3 text-left">
+          <div suppressHydrationWarning className="bg-earth-900/40 backdrop-blur-md p-8 rounded-2xl border border-copper/20 space-y-3 text-left h-full">
             <h3 className="font-serif text-vanilla text-lg flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-olive" />
               Event Benefits
@@ -336,7 +546,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div suppressHydrationWarning className="bg-earth-900/40 backdrop-blur-md p-8 rounded-2xl border border-copper/20 space-y-3 text-left">
+          <div suppressHydrationWarning className="bg-earth-900/40 backdrop-blur-md p-8 rounded-2xl border border-copper/20 space-y-3 text-left h-full">
             <h3 className="font-serif text-vanilla text-lg flex items-center gap-2">
               <HelpCircle className="w-4 h-4 text-tea" />
               Frequently Asked Questions
@@ -351,14 +561,14 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 6: REGISTRATION (Ground Level Target)                     */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="bg-earth-900/70 backdrop-blur-md border border-copper/35 rounded-3xl p-8 sm:p-12 shadow-earth-card space-y-8 text-center">
+        <section id="register" suppressHydrationWarning className="bg-earth-900/70 backdrop-blur-md border border-copper/35 rounded-3xl p-8 sm:p-12 shadow-earth-card space-y-8 text-center scroll-mt-24">
           
           <div suppressHydrationWarning className="space-y-3">
             <span className="text-xs font-serif text-tea tracking-widest uppercase">
               Final Call for Participation
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-vanilla leading-tight">
-              Your view of Earth is about to change.
+              <NarrationTyping text="Your view of Earth is about to change." delay={100} speed={30} />
             </h2>
             <div className="copper-rule w-32 mx-auto pt-2" />
           </div>
@@ -367,9 +577,15 @@ export default function Home() {
             <p>You&apos;ve seen the planet from above.</p>
             <p>You&apos;ve followed the data.</p>
             <p>You&apos;ve explored the technology.</p>
-            <p className="text-vanilla font-semibold text-lg pt-2 italic">
-              Now it&apos;s your turn to step into the field.
-            </p>
+            <div className="pt-2">
+              <p className="text-vanilla font-semibold text-lg italic">
+                <NarrationWords 
+                  text="Now it's your turn to step into the field." 
+                  delay={350} 
+                  staggerMs={28} 
+                />
+              </p>
+            </div>
           </div>
 
           <p className="text-sm md:text-base text-vanilla/90 font-sans max-w-lg mx-auto leading-relaxed">
@@ -380,15 +596,17 @@ export default function Home() {
             Look beyond the horizon and step into the world of Geo-AI.
           </div>
 
-          {/* Elegant Registration CTA Button */}
+          {/* Elegant Registration CTA Link */}
           <div suppressHydrationWarning className="pt-4 flex justify-center">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-8 py-4 rounded-xl bg-olive text-earth-950 font-serif font-bold text-base tracking-wide shadow-earth-card hover:bg-tea hover:scale-105 active:scale-95 transition-all flex items-center gap-3"
+            <a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-xl bg-olive text-earth-950 font-serif font-bold text-base tracking-wide shadow-earth-card hover:bg-tea hover:scale-105 active:scale-95 transition-all flex items-center gap-3 no-underline group"
             >
               <span>Register Now</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
 
         </section>
@@ -400,12 +618,6 @@ export default function Home() {
         </footer>
 
       </div>
-
-      {/* ================= REGISTRATION MODAL ================= */}
-      <RegistrationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
 
     </main>
   );
