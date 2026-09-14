@@ -9,18 +9,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        vanilla: "#f0ead2",
-        tea: "#dde5b6",
+        white: "#FFFFFF",
+        sage: "#A6B3A0",
+        "sky-blue": "#4FC3F7",
+        "canopy-green": "#10B981",
+        amber: {
+          DEFAULT: "#F59E0B",
+          400: "#FBBF24",
+          500: "#F59E0B",
+          600: "#D97706",
+        },
+        space: {
+          950: "#07090b",
+          900: "#0b0f13",
+          glass: "rgba(11, 15, 19, 0.70)",
+        },
+        // Semantic aliases for seamless consistency
+        vanilla: "#FFFFFF",
+        tea: "#A6B3A0",
         olive: "#adc178",
-        copper: "#a98467",
-        ash: "#6c584c",
+        copper: "#A6B3A0",
         earth: {
-          950: "#0d0b09",
-          900: "#15120f",
-          850: "#1d1916",
-          800: "#292420",
-          700: "#3d3630",
-          600: "#554c44",
+          950: "#07090b",
+          900: "#0b0f13",
+          850: "#14181c",
+          800: "#1c2228",
+          700: "#2d353e",
+          600: "#434e5a",
         },
       },
       fontFamily: {

@@ -6,13 +6,14 @@
 @tailwind utilities;
 
 :root {
-  --vanilla-cream: #f0ead2;
-  --tea-green: #dde5b6;
-  --muted-olive: #adc178;
-  --faded-copper: #a98467;
-  --ash-brown: #6c584c;
-  --background: #0d0b09;
-  --foreground: #f0ead2;
+  --space-glass: rgba(11, 15, 19, 0.70);
+  --primary-white: #FFFFFF;
+  --muted-sage: #A6B3A0;
+  --sky-blue: #4FC3F7;
+  --canopy-green: #10B981;
+  --amber-action: #F59E0B;
+  --background: #07090b;
+  --foreground: #FFFFFF;
 }
 
 body {
@@ -22,32 +23,48 @@ body {
   font-weight: 400;
   letter-spacing: -0.015em; /* Decreased kerning for normal text */
   overflow-x: hidden;
-  selection-background-color: var(--muted-olive);
-  selection-color: #0d0b09;
+  selection-background-color: var(--amber-action);
+  selection-color: #07090b;
   scroll-behavior: smooth;
 }
 
-/* Headings: Playfair Display Bold with decreased kerning */
+/* Adaptive Glass Container */
+.glass-container, .glass-card {
+  background: rgba(11, 15, 19, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(166, 179, 160, 0.18);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* Headings: Playfair Display Bold with decreased kerning & Pure White */
 h1, h2, h3, .font-heading {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-weight: 700;
   font-feature-settings: "liga", "kern";
   letter-spacing: -0.03em; /* Decreased kerning */
-  color: var(--vanilla-cream);
+  color: #FFFFFF; /* Pure White for maximum contrast */
 }
 
-/* Subheadings: Helvetica Bold with decreased kerning */
-h4, h5, h6, .subheading, .font-subheading {
+h4, h5, h6, .subheading {
   font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em; /* Decreased kerning */
+  color: #A6B3A0; /* Muted Sage */
 }
 
-/* Quotes / Italic Narrative Callouts: Playfair Display Italics with decreased kerning */
+.font-subheading {
+  font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Quotes / Italic Narrative Callouts: Playfair Display Italics with decreased kerning & Muted Sage */
 blockquote, q, .quote, .font-quote {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-style: italic;
   letter-spacing: -0.025em; /* Decreased kerning */
+  color: #A6B3A0; /* Muted Sage */
 }
 
 /* Normal Text: Helvetica Regular with decreased kerning */
@@ -55,11 +72,12 @@ blockquote, q, .quote, .font-quote {
   font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
   letter-spacing: -0.015em; /* Decreased kerning */
+  color: rgba(255, 255, 255, 0.88);
 }
 
 ::selection {
-  background: #adc178;
-  color: #0d0b09;
+  background: #F59E0B;
+  color: #07090b;
 }
 
 /* Custom Earthy Telemetry Scrollbar */
@@ -67,24 +85,24 @@ blockquote, q, .quote, .font-quote {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #15120f;
+  background: #0b0f13;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(173, 193, 120, 0.25);
+  background: rgba(166, 179, 160, 0.25);
   border-radius: 3px;
-  border: 1px solid rgba(169, 132, 103, 0.25);
+  border: 1px solid rgba(166, 179, 160, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(173, 193, 120, 0.5);
+  background: rgba(245, 158, 11, 0.6);
 }
 
 /* Atmospheric Vignette Overlay */
 .vignette-overlay {
   background: radial-gradient(
     circle at center,
-    transparent 35%,
-    rgba(13, 11, 9, 0.45) 70%,
-    rgba(13, 11, 9, 0.92) 100%
+    transparent 30%,
+    rgba(7, 9, 11, 0.5) 65%,
+    rgba(7, 9, 11, 0.95) 100%
   );
   pointer-events: none;
 }
@@ -147,6 +165,63 @@ blockquote, q, .quote, .font-quote {
 .copper-rule {
   height: 1px;
   background: linear-gradient(to right, transparent, rgba(169, 132, 103, 0.35), transparent);
+}
+
+/* Cinematic Multi-Layer Text Shadows for High Readability over Satellite Imagery */
+.text-shadow-cinema {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 6px 20px rgba(0, 0, 0, 0.9),
+    0 12px 35px rgba(0, 0, 0, 0.85);
+}
+
+.text-shadow-heading {
+  text-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.95),
+    0 10px 30px rgba(0, 0, 0, 0.9),
+    0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.text-shadow-body {
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 4px 12px rgba(0, 0, 0, 0.85);
+}
+
+/* Full Page Width Soft Editorial Gradient Bands (Replacing closed boxed cards) */
+.editorial-band-center {
+  background: radial-gradient(
+    ellipse 100% 70% at 50% 50%,
+    rgba(7, 9, 11, 0.72) 0%,
+    rgba(7, 9, 11, 0.45) 60%,
+    transparent 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.editorial-band-left {
+  background: linear-gradient(
+    90deg,
+    rgba(7, 9, 11, 0.85) 0%,
+    rgba(7, 9, 11, 0.65) 45%,
+    rgba(7, 9, 11, 0.25) 75%,
+    transparent 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.editorial-band-right {
+  background: linear-gradient(
+    270deg,
+    rgba(7, 9, 11, 0.85) 0%,
+    rgba(7, 9, 11, 0.65) 45%,
+    rgba(7, 9, 11, 0.25) 75%,
+    transparent 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* MapLibre Canvas Customization */

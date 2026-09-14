@@ -315,12 +315,12 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
           mapReady ? "opacity-0" : "opacity-100"
         }`}
         style={{
-          background: "radial-gradient(ellipse at 50% 60%, rgba(35, 30, 25, 0.7) 0%, rgba(13, 11, 9, 0.95) 70%, #0d0b09 100%)"
+          background: "radial-gradient(ellipse at 50% 60%, rgba(11, 15, 19, 0.75) 0%, rgba(7, 9, 11, 0.95) 70%, #07090b 100%)"
         }}
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40">
-          <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-copper/30 animate-pulse-slow" />
-          <span className="text-[10px] font-mono text-tea tracking-tight uppercase mt-4">
+          <div className="w-48 h-48 sm:w-64 sm:h-64 rounded-full border border-[#A6B3A0]/30 animate-pulse-slow" />
+          <span className="text-[10px] font-mono text-[#A6B3A0] tracking-tight uppercase mt-4">
             Earth Observation Feed Initializing...
           </span>
         </div>
