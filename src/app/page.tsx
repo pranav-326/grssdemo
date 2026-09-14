@@ -64,16 +64,24 @@ export default function Home() {
   const spectralMode = "rgb";
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const tickingRef = useRef<boolean>(false);
 
-  // Track scroll progress smoothly across the scroll track & detect when hero leaves view
+  // Track scroll progress smoothly with requestAnimationFrame throttling for mobile 60fps
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll <= 0) return;
-      const current = window.scrollY;
-      const progress = Math.min(1, Math.max(0, current / totalScroll));
-      setScrollProgress(progress);
-      setIsPastHero(current > window.innerHeight * 0.65);
+      if (!tickingRef.current) {
+        window.requestAnimationFrame(() => {
+          const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalScroll > 0) {
+            const current = window.scrollY;
+            const progress = Math.min(1, Math.max(0, current / totalScroll));
+            setScrollProgress(progress);
+            setIsPastHero(current > window.innerHeight * 0.55);
+          }
+          tickingRef.current = false;
+        });
+        tickingRef.current = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -91,35 +99,35 @@ export default function Home() {
       {/* ================= TOP NAVIGATION BAR (Hides after Hero) ================= */}
       <header
         suppressHydrationWarning
-        className={`fixed top-0 left-0 right-0 z-50 bg-[rgba(11,15,19,0.70)] backdrop-blur-[12px] border-b border-[rgba(166,179,160,0.18)] shadow-2xl transition-all duration-500 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-[rgba(11,15,19,0.85)] md:bg-[rgba(11,15,19,0.70)] md:backdrop-blur-[12px] border-b border-[rgba(166,179,160,0.18)] shadow-2xl transition-all duration-500 ease-in-out ${
           isPastHero
             ? "-translate-y-full opacity-0 pointer-events-none"
             : "translate-y-0 opacity-100 pointer-events-auto"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
           
-          {/* Event Brand: GRSS School (Bigger, Pure White) & Subheading (Muted Sage) */}
+          {/* Event Brand: GRSS School & Subheading */}
           <div className="flex flex-col text-center md:text-left">
             <span className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white tracking-tightest leading-none">
               GRSS School
             </span>
-            <span className="text-[10px] sm:text-xs md:text-sm font-subheading font-bold text-[#A6B3A0] tracking-tight leading-tight pt-1 max-w-lg">
+            <span className="text-[11px] sm:text-xs md:text-sm font-subheading font-bold text-[#A6B3A0] tracking-tight leading-tight pt-1 max-w-lg">
               on GeoIntelligence for Sustainable Precision Agriculture
             </span>
           </div>
 
-          {/* Institutional Logos (Bigger, High Visibility, Transparent without boxes) */}
-          <div className="flex items-center justify-center flex-wrap gap-3 sm:gap-4 md:gap-6">
+          {/* Institutional Logos (Bigger, Clean on Mobile & Desktop) */}
+          <div className="flex items-center justify-center flex-wrap gap-2.5 sm:gap-4 md:gap-6">
             {INSTITUTIONAL_LOGOS.map((logo, idx) => (
               <div
                 key={idx}
-                className="h-10 sm:h-12 md:h-14 flex items-center justify-center transition-all duration-300 hover:scale-105"
+                className="h-8 sm:h-12 md:h-14 flex items-center justify-center transition-all duration-300 hover:scale-105"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-full w-auto object-contain max-h-9 sm:max-h-11 md:max-h-12 drop-shadow-sm"
+                  className="h-full w-auto object-contain max-h-7 sm:max-h-11 md:max-h-12 drop-shadow-sm"
                 />
               </div>
             ))}
@@ -129,10 +137,10 @@ export default function Home() {
               href={REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 px-5 py-2.5 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-xs sm:text-sm tracking-tight shadow-md hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 no-underline"
+              className="ml-1 sm:ml-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-xs sm:text-sm tracking-tight shadow-md hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 sm:gap-2 no-underline"
             >
               <span className="text-black font-bold">Register</span>
-              <ArrowRight className="w-4 h-4 text-black stroke-[2.5]" />
+              <ArrowRight className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-black stroke-[2.5]" />
             </a>
           </div>
 
@@ -334,30 +342,29 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 2: ABOUT NIE & ABOUT NISB-GRSS (Alternating Left / Right) */}
         {/* ----------------------------------------------------------------- */}
-        <section id="about" suppressHydrationWarning className="w-full space-y-24 sm:space-y-36 scroll-mt-24 py-16">
+        <section id="about" suppressHydrationWarning className="w-full space-y-16 sm:space-y-32 scroll-mt-24 py-10 sm:py-16">
           
           {/* Part 1: About NIE (Left-Aligned Full-Width Block) */}
-          <div suppressHydrationWarning className="w-full editorial-band-left py-16 sm:py-24 px-6 sm:px-12 md:px-20 relative">
-            {/* Parallax Floating Watermark Year */}
+          <div suppressHydrationWarning className="w-full editorial-band-left py-12 sm:py-24 px-5 sm:px-12 md:px-20 relative overflow-hidden">
+            {/* Watermark Year: Subtle on desktop, hidden or non-overlapping on mobile */}
             <div 
-              style={{ transform: `translateY(${(scrollProgress - 0.25) * 60}px)` }}
-              className="absolute right-6 sm:right-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-white/[0.03] transition-transform duration-100 ease-out"
+              className="hidden md:block absolute right-6 sm:right-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-white/[0.03] transition-transform duration-100 ease-out"
             >
               1946
             </div>
 
-            <div className="max-w-3xl space-y-4 relative z-10 text-left">
-              <span className="text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
+            <div className="max-w-3xl space-y-3 sm:space-y-4 relative z-10 text-left">
+              <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
                 Historical Heritage
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
                 <NarrationTyping text="The National Institute of Engineering" delay={150} speed={25} />
               </h2>
               <p className="text-sm sm:text-base font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 Eight decades of pioneering technical education in Mysuru
               </p>
               
-              <div className="copper-rule w-24 my-3" />
+              <div className="copper-rule w-20 sm:w-24 my-2 sm:my-3" />
               
               <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body">
                 Established in <strong className="text-[#A6B3A0] font-subheading font-bold">1946</strong>, <strong className="text-white font-subheading font-bold">NIE</strong> has grown into one of India&apos;s leading engineering institutions, building a legacy of education, innovation, and technological excellence.
@@ -368,28 +375,27 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Part 2: About NISB-GRSS (Right-Aligned Full-Width Block) */}
-          <div suppressHydrationWarning className="w-full editorial-band-right py-16 sm:py-24 px-6 sm:px-12 md:px-20 relative">
-            {/* Parallax Floating Watermark Logo Text */}
+          {/* Part 2: About NISB-GRSS (Left on mobile, Right on md+) */}
+          <div suppressHydrationWarning className="w-full editorial-band-right py-12 sm:py-24 px-5 sm:px-12 md:px-20 relative overflow-hidden">
+            {/* Watermark Logo: Subtle on desktop, hidden on mobile */}
             <div 
-              style={{ transform: `translateY(${(scrollProgress - 0.35) * -70}px)` }}
-              className="absolute left-6 sm:left-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-[#A6B3A0]/[0.03] transition-transform duration-100 ease-out"
+              className="hidden md:block absolute left-6 sm:left-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-[#A6B3A0]/[0.03] transition-transform duration-100 ease-out"
             >
               GRSS
             </div>
 
-            <div className="max-w-3xl ml-auto space-y-4 relative z-10 text-right">
-              <span className="text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
+            <div className="max-w-3xl md:ml-auto space-y-3 sm:space-y-4 relative z-10 text-left md:text-right">
+              <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
                 Global Network &amp; Student Chapter
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
                 <NarrationTyping text="NIE IEEE Student Branch — GRSS" delay={200} speed={25} />
               </h2>
               <p className="text-sm sm:text-base font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 Bridging academic discovery and space-age remote sensing
               </p>
 
-              <div className="copper-rule w-24 ml-auto my-3" />
+              <div className="copper-rule w-20 sm:w-24 md:ml-auto my-2 sm:my-3" />
 
               <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body">
                 At the heart of this journey is the <strong className="text-white font-subheading font-bold">NIE IEEE Student Branch — GRSS</strong>, bringing the world of geoscience and remote sensing closer to students.
@@ -403,16 +409,16 @@ export default function Home() {
         </section>
 
         {/* ----------------------------------------------------------------- */}
-        {/* SECTION 3: THE SCHEDULE (Alternating Left & Right Days)            */}
+        {/* SECTION 3: THE SCHEDULE (Alternating on Desktop, Clear on Mobile) */}
         {/* ----------------------------------------------------------------- */}
-        <section id="schedule" suppressHydrationWarning className="w-full space-y-20 sm:space-y-28 scroll-mt-24 py-16">
+        <section id="schedule" suppressHydrationWarning className="w-full space-y-12 sm:space-y-24 scroll-mt-24 py-10 sm:py-16">
           
-          {/* Section Heading Banner (Centered Full Width) */}
-          <div suppressHydrationWarning className="text-center space-y-3 px-6 editorial-band-center py-10">
+          {/* Section Heading Banner */}
+          <div suppressHydrationWarning className="text-center space-y-2.5 px-4 sm:px-6 editorial-band-center py-8 sm:py-10">
             <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
               <NarrationTyping text="The Schedule" delay={100} speed={35} />
             </h2>
-            <p className="text-lg sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
+            <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
               <NarrationWords text="Three Days. Three Perspectives. Three Leaps." staggerMs={28} delay={200} />
             </p>
             <p className="text-xs sm:text-sm text-white/75 font-sans font-normal max-w-lg mx-auto tracking-tight pt-1">
@@ -422,24 +428,22 @@ export default function Home() {
                 delay={350}
               />
             </p>
-            <div className="copper-rule w-32 mx-auto pt-4" />
+            <div className="copper-rule w-28 sm:w-32 mx-auto pt-3 sm:pt-4" />
           </div>
 
-          <div suppressHydrationWarning className="space-y-16 sm:space-y-24">
+          <div suppressHydrationWarning className="space-y-10 sm:space-y-20">
             
             {/* Day 1: Aligned to the LEFT (Stage 1 Observation · Sky Blue) */}
-            <div suppressHydrationWarning className="w-full editorial-band-left py-14 sm:py-20 px-6 sm:px-12 md:px-20 relative">
-              {/* Parallax Big Number "01" */}
+            <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                style={{ transform: `translateY(${(scrollProgress - 0.45) * 50}px)` }}
-                className="absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#4FC3F7]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden md:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#4FC3F7]/[0.05] transition-transform duration-100 ease-out"
               >
                 01
               </div>
 
-              <div className="max-w-2xl space-y-4 text-left relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-subheading font-bold text-[#4FC3F7] uppercase tracking-tight flex items-center gap-2">
+              <div className="max-w-2xl space-y-3 sm:space-y-4 text-left relative z-10">
+                <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+                  <span className="text-xs font-subheading font-bold text-[#4FC3F7] uppercase tracking-tight flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-[#4FC3F7]" />
                     Day 01 · November 3
                   </span>
@@ -464,28 +468,26 @@ export default function Home() {
                   Then get hands-on with <strong className="text-white font-subheading font-bold">Google Earth Engine and UAV data</strong> to map agricultural fields and monitor crops.
                 </p>
 
-                <div className="pt-2 text-xs font-quote italic text-[#4FC3F7] tracking-tight">
+                <div className="pt-1 sm:pt-2 text-xs font-quote italic text-[#4FC3F7] tracking-tight">
                   From observation to insight →
                 </div>
               </div>
             </div>
 
-            {/* Day 2: Aligned to the RIGHT (Stage 2 Insight · Canopy Green) */}
-            <div suppressHydrationWarning className="w-full editorial-band-right py-14 sm:py-20 px-6 sm:px-12 md:px-20 relative">
-              {/* Parallax Big Number "02" */}
+            {/* Day 2: Aligned to the RIGHT on desktop, natural on mobile (Stage 2 Insight · Canopy Green) */}
+            <div suppressHydrationWarning className="w-full editorial-band-right py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                style={{ transform: `translateY(${(scrollProgress - 0.55) * -50}px)` }}
-                className="absolute left-8 sm:left-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#10B981]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden md:block absolute left-8 sm:left-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#10B981]/[0.05] transition-transform duration-100 ease-out"
               >
                 02
               </div>
 
-              <div className="max-w-2xl ml-auto space-y-4 text-right relative z-10">
-                <div className="flex items-center justify-end gap-3">
+              <div className="max-w-2xl md:ml-auto space-y-3 sm:space-y-4 text-left md:text-right relative z-10">
+                <div className="flex items-center md:justify-end gap-2.5 sm:gap-3 flex-wrap">
                   <span className="text-[10px] font-subheading font-bold text-[#10B981] border border-[#10B981]/40 bg-[#10B981]/10 px-2.5 py-0.5 rounded-full uppercase tracking-tight">
                     Stage II: Insight
                   </span>
-                  <span className="text-xs font-subheading font-bold text-[#10B981] uppercase tracking-tight flex items-center gap-2">
+                  <span className="text-xs font-subheading font-bold text-[#10B981] uppercase tracking-tight flex items-center gap-1.5">
                     Day 02 · November 4
                     <Calendar className="w-3.5 h-3.5 text-[#10B981]" />
                   </span>
@@ -498,7 +500,7 @@ export default function Home() {
                   Geo-AI for Crop &amp; Soil Assessment
                 </p>
 
-                <div className="w-16 h-0.5 bg-[#10B981]/40 ml-auto my-2" />
+                <div className="w-16 h-0.5 bg-[#10B981]/40 md:ml-auto my-2" />
 
                 <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body">
                   Go deeper with <strong className="text-white font-subheading font-bold">machine learning and deep learning</strong> for crop classification and agricultural monitoring.
@@ -507,25 +509,23 @@ export default function Home() {
                   Explore how Geo-AI can reveal <strong className="text-white font-subheading font-bold">crop health, soil moisture, and vegetation stress</strong>—then apply it yourself using satellite and UAV data.
                 </p>
 
-                <div className="pt-2 text-xs font-quote italic text-[#10B981] tracking-tight">
+                <div className="pt-1 sm:pt-2 text-xs font-quote italic text-[#10B981] tracking-tight">
                   ← From insight to intelligence
                 </div>
               </div>
             </div>
 
             {/* Day 3: Aligned to the LEFT (Stage 3 Action · Amber) */}
-            <div suppressHydrationWarning className="w-full editorial-band-left py-14 sm:py-20 px-6 sm:px-12 md:px-20 relative">
-              {/* Parallax Big Number "03" */}
+            <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                style={{ transform: `translateY(${(scrollProgress - 0.65) * 50}px)` }}
-                className="absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#F59E0B]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden md:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#F59E0B]/[0.05] transition-transform duration-100 ease-out"
               >
                 03
               </div>
 
-              <div className="max-w-2xl space-y-4 text-left relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-subheading font-bold text-[#F59E0B] uppercase tracking-tight flex items-center gap-2">
+              <div className="max-w-2xl space-y-3 sm:space-y-4 text-left relative z-10">
+                <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+                  <span className="text-xs font-subheading font-bold text-[#F59E0B] uppercase tracking-tight flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-[#F59E0B]" />
                     Day 03 · November 5
                   </span>
@@ -550,7 +550,7 @@ export default function Home() {
                   Bring it all together by developing a <strong className="text-white font-subheading font-bold">Geo-AI-based Precision Irrigation Decision-Support System.</strong>
                 </p>
 
-                <div className="pt-2 text-xs font-quote italic text-[#F59E0B] tracking-tight">
+                <div className="pt-1 sm:pt-2 text-xs font-quote italic text-[#F59E0B] tracking-tight">
                   From intelligence to action.
                 </div>
               </div>
@@ -560,31 +560,31 @@ export default function Home() {
         </section>
 
         {/* ----------------------------------------------------------------- */}
-        {/* SECTION 4: THE SPEAKERS (Full-Width Asymmetric Banner)            */}
+        {/* SECTION 4: THE SPEAKERS (Full-Width Banner, Clean on Mobile)      */}
         {/* ----------------------------------------------------------------- */}
-        <section id="speakers" suppressHydrationWarning className="w-full editorial-band-right py-16 sm:py-24 px-6 sm:px-12 md:px-20 scroll-mt-24 relative">
-          <div className="max-w-4xl ml-auto text-right space-y-5">
-            <span className="text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
+        <section id="speakers" suppressHydrationWarning className="w-full editorial-band-right py-12 sm:py-24 px-5 sm:px-12 md:px-20 scroll-mt-24 relative overflow-hidden">
+          <div className="max-w-4xl md:ml-auto text-left md:text-right space-y-4 sm:space-y-5">
+            <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
               Academic Faculty &amp; Industry Practitioners
             </span>
-            <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
               <NarrationTyping text="The Speakers" delay={100} speed={35} />
             </h2>
-            <p className="text-base sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
+            <p className="text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
               <NarrationWords text="Learn from those shaping the future of Earth observation." delay={200} staggerMs={25} />
             </p>
             
-            <div className="copper-rule w-28 ml-auto my-3" />
+            <div className="copper-rule w-20 sm:w-28 md:ml-auto my-2 sm:my-3" />
 
-            <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl ml-auto">
+            <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl md:ml-auto">
               Meet the <strong className="text-white font-subheading font-bold">experts, researchers, and practitioners</strong> bringing their experience in <span className="text-[#A6B3A0] font-subheading font-bold">Geoscience, Remote Sensing, Geo-AI, and Precision Agriculture</span> to the event.
             </p>
 
-            <p className="text-sm md:text-base text-white/80 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl ml-auto">
+            <p className="text-sm md:text-base text-white/80 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl md:ml-auto">
               Through expert talks and hands-on sessions, gain insights from those working at the intersection of <strong className="text-white font-subheading font-bold">technology, data, and our planet</strong>. Explore their expertise, discover new perspectives, and learn from the minds driving modern Earth observation.
             </p>
 
-            <div suppressHydrationWarning className="pt-3 text-xs font-quote italic text-[#A6B3A0] tracking-tight">
+            <div suppressHydrationWarning className="pt-2 sm:pt-3 text-xs font-quote italic text-[#A6B3A0] tracking-tight">
               <NarrationWords 
                 text="Meet the minds behind the journey." 
                 delay={300} 
@@ -597,35 +597,35 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 5: BENEFITS & FAQ (Staggered Full-Width Blocks)           */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="w-full space-y-16 py-12">
+        <section suppressHydrationWarning className="w-full space-y-8 sm:space-y-16 py-8 sm:py-12">
           
           {/* Benefits Block (Left Aligned) */}
-          <div suppressHydrationWarning className="w-full editorial-band-left py-12 px-6 sm:px-12 md:px-20 text-left">
-            <div className="max-w-2xl space-y-3">
-              <h3 className="font-heading font-bold text-white text-2xl tracking-tight flex items-center gap-3 text-shadow-heading">
-                <CheckCircle2 className="w-5 h-5 text-[#10B981]" />
+          <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-14 px-5 sm:px-12 md:px-20 text-left">
+            <div className="max-w-2xl space-y-2.5 sm:space-y-3">
+              <h3 className="font-heading font-bold text-white text-xl sm:text-2xl tracking-tight flex items-center gap-2.5 sm:gap-3 text-shadow-heading">
+                <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5 text-[#10B981]" />
                 Event Benefits
               </h3>
-              <p className="text-sm font-quote italic text-[#10B981] tracking-tight text-shadow-body">
+              <p className="text-xs sm:text-sm font-quote italic text-[#10B981] tracking-tight text-shadow-body">
                 Certification, practical workflows, and real data access
               </p>
-              <p className="text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
+              <p className="text-xs sm:text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
                 Hands-on Google Earth Engine &amp; UAV workflows, official IEEE GRSS Certificates of Completion, curated geospatial datasets, and research mentorship with senior practitioners.
               </p>
             </div>
           </div>
 
-          {/* FAQ Block (Right Aligned) */}
-          <div suppressHydrationWarning className="w-full editorial-band-right py-12 px-6 sm:px-12 md:px-20 text-right">
-            <div className="max-w-2xl ml-auto space-y-3">
-              <h3 className="font-heading font-bold text-white text-2xl tracking-tight flex items-center justify-end gap-3 text-shadow-heading">
+          {/* FAQ Block (Left Aligned on mobile, Right on md+) */}
+          <div suppressHydrationWarning className="w-full editorial-band-right py-10 sm:py-14 px-5 sm:px-12 md:px-20 text-left md:text-right">
+            <div className="max-w-2xl md:ml-auto space-y-2.5 sm:space-y-3">
+              <h3 className="font-heading font-bold text-white text-xl sm:text-2xl tracking-tight flex items-center md:justify-end gap-2.5 sm:gap-3 text-shadow-heading">
                 Frequently Asked Questions
-                <HelpCircle className="w-5 h-5 text-[#4FC3F7]" />
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7]" />
               </h3>
-              <p className="text-sm font-quote italic text-[#4FC3F7] tracking-tight text-shadow-body">
+              <p className="text-xs sm:text-sm font-quote italic text-[#4FC3F7] tracking-tight text-shadow-body">
                 Participation prerequisites and eligibility details
               </p>
-              <p className="text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
+              <p className="text-xs sm:text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
                 Open to undergraduate and postgraduate engineering students, agronomists, faculty researchers, and industry specialists interested in remote sensing, satellite analytics, and Geo-AI.
               </p>
             </div>
@@ -636,29 +636,29 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 6: REGISTRATION (Full-Width Panoramic Ground Target CTA)   */}
         {/* ----------------------------------------------------------------- */}
-        <section id="register" suppressHydrationWarning className="w-full editorial-band-center py-20 sm:py-28 px-6 text-center scroll-mt-24 relative">
+        <section id="register" suppressHydrationWarning className="w-full editorial-band-center py-16 sm:py-28 px-5 sm:px-6 text-center scroll-mt-24 relative">
           
-          <div suppressHydrationWarning className="max-w-3xl mx-auto space-y-8 relative z-10">
+          <div suppressHydrationWarning className="max-w-3xl mx-auto space-y-6 sm:space-y-8 relative z-10">
             
-            <div suppressHydrationWarning className="space-y-3">
-              <span className="text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
+            <div suppressHydrationWarning className="space-y-2.5 sm:space-y-3">
+              <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
                 Final Call for Participation
               </span>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold text-white tracking-tight leading-tight text-shadow-heading">
+              <h2 className="text-2xl sm:text-5xl md:text-6xl font-heading font-bold text-white tracking-tight leading-tight text-shadow-heading">
                 <NarrationTyping text="Your view of Earth is about to change." delay={100} speed={30} />
               </h2>
-              <p className="text-base sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
+              <p className="text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 From satellite vantage to ground resolution
               </p>
-              <div className="copper-rule w-32 mx-auto pt-2" />
+              <div className="copper-rule w-24 sm:w-32 mx-auto pt-2" />
             </div>
 
-            <div suppressHydrationWarning className="max-w-xl mx-auto space-y-2 text-sm md:text-base font-sans font-normal text-white/90 tracking-tight text-shadow-body">
+            <div suppressHydrationWarning className="max-w-xl mx-auto space-y-1.5 sm:space-y-2 text-sm md:text-base font-sans font-normal text-white/90 tracking-tight text-shadow-body">
               <p>You&apos;ve seen the planet from above.</p>
               <p>You&apos;ve followed the data.</p>
               <p>You&apos;ve explored the technology.</p>
               <div className="pt-2">
-                <p className="text-white font-quote italic text-xl tracking-tight text-shadow-cinema">
+                <p className="text-white font-quote italic text-lg sm:text-xl tracking-tight text-shadow-cinema">
                   <NarrationWords 
                     text="Now it's your turn to step into the field." 
                     delay={350} 
@@ -668,24 +668,24 @@ export default function Home() {
               </div>
             </div>
 
-            <p className="text-sm md:text-base text-white/85 font-sans font-normal max-w-lg mx-auto leading-relaxed tracking-tight text-shadow-body">
+            <p className="text-xs sm:text-base text-white/85 font-sans font-normal max-w-lg mx-auto leading-relaxed tracking-tight text-shadow-body">
               Join us and explore how <strong className="text-white font-subheading font-bold">satellites, UAVs, geospatial data, and AI</strong> are transforming the way we understand agriculture and our planet.
             </p>
 
-            <div suppressHydrationWarning className="pt-2 text-base sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
+            <div suppressHydrationWarning className="pt-1 sm:pt-2 text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
               Look beyond the horizon and step into the world of Geo-AI.
             </div>
 
             {/* Elegant Registration CTA Link with exact design requested */}
-            <div suppressHydrationWarning className="pt-6 flex justify-center">
+            <div suppressHydrationWarning className="pt-4 sm:pt-6 flex justify-center">
               <a
                 href={REGISTRATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-base tracking-tight shadow-2xl hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-3 no-underline group"
+                className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-sm sm:text-base tracking-tight shadow-2xl hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 sm:gap-3 no-underline group"
               >
                 <span className="text-black font-bold">Register</span>
-                <ArrowRight className="w-5 h-5 text-black stroke-[2.5] transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-black stroke-[2.5] transition-transform group-hover:translate-x-1" />
               </a>
             </div>
 
@@ -694,7 +694,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer suppressHydrationWarning className="pt-12 pb-16 text-center text-xs font-sans font-normal text-[#A6B3A0]/70 space-y-2 border-t border-[rgba(166,179,160,0.18)] tracking-tight">
+        <footer suppressHydrationWarning className="pt-10 sm:pt-12 pb-14 sm:pb-16 text-center text-xs font-sans font-normal text-[#A6B3A0]/70 space-y-2 border-t border-[rgba(166,179,160,0.18)] tracking-tight px-4">
           <p>© 2026 The National Institute of Engineering (NIE) IEEE Student Branch — GRSS Chapter.</p>
           <p className="text-[11px] text-[#A6B3A0]/50">Mysuru, Karnataka, India</p>
         </footer>

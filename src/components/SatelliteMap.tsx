@@ -87,9 +87,11 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
-    // Enable high parallel downloads for raster tiles
+    // Enable optimized parallel downloads (conservative on mobile to avoid network & thread choking)
+    const isMobileDevice = typeof window !== "undefined" && (window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent));
+    
     if (typeof maplibregl.setMaxParallelImageRequests === "function") {
-      maplibregl.setMaxParallelImageRequests(32);
+      maplibregl.setMaxParallelImageRequests(isMobileDevice ? 8 : 24);
     }
 
     const map = new maplibregl.Map({
@@ -119,7 +121,7 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
               // Linear resampling enables smooth progressive blur-reconstruction
               // so parent low-zoom tiles overscale cleanly instead of showing black voids
               "raster-resampling": "linear",
-              "raster-fade-duration": 250,
+              "raster-fade-duration": isMobileDevice ? 100 : 200,
             },
           },
         ],
@@ -131,7 +133,8 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
       interactive: isInteractive,
       attributionControl: false,
       renderWorldCopies: false,
-      maxTileCacheSize: 600, // Large in-memory tile cache to keep parent and intermediate tiles alive
+      maxTileCacheSize: isMobileDevice ? 150 : 400,
+      pixelRatio: typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1,
     });
 
     map.on("load", () => {
@@ -238,12 +241,15 @@ export const SatelliteMap: React.FC<SatelliteMapProps> = ({
           bearing = lerp(KEYFRAMES.atmosphere.bearing, KEYFRAMES.ground.bearing, t);
         }
 
-        mapRef.current.jumpTo({
-          center: [centerLng, centerLat],
-          zoom,
-          pitch,
-          bearing,
-        });
+        // Only execute WebGL jumpTo if there is real movement
+        if (Math.abs(diff) > 0.0001) {
+          mapRef.current.jumpTo({
+            center: [centerLng, centerLat],
+            zoom,
+            pitch,
+            bearing,
+          });
+        }
       }
 
       animFrameIdRef.current = requestAnimationFrame(updateCamera);
