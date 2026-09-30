@@ -17,7 +17,12 @@ import {
   ArrowRight, 
   Calendar,
   Menu,
-  X
+  X,
+  Plane,
+  FileText,
+  ChevronRight,
+  AlertCircle,
+  Sparkles
 } from "lucide-react";
 
 // Registration link destination (Google Form / Portal)
@@ -213,6 +218,22 @@ export default function Home() {
               >
                 <Award className="w-3.5 h-3.5 text-[#F59E0B]" />
                 <span>The Speakers</span>
+              </a>
+              <a
+                href="#travel-grant"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#A6B3A0] hover:text-white hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <Plane className="w-3.5 h-3.5 text-[#F59E0B]" />
+                <span>Travel Grant</span>
+              </a>
+              <a
+                href="#faqs"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#A6B3A0] hover:text-white hover:bg-white/5 transition-colors flex items-center gap-2.5"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-[#4FC3F7]" />
+                <span>FAQs</span>
               </a>
               <a
                 href="#register"
@@ -469,7 +490,7 @@ export default function Home() {
                 </p>
 
                 <div className="pt-1 sm:pt-2 text-xs font-quote italic text-[#4FC3F7] tracking-tight">
-                  From observation to insight →
+                  From observation to insight 
                 </div>
               </div>
             </div>
@@ -510,7 +531,7 @@ export default function Home() {
                 </p>
 
                 <div className="pt-1 sm:pt-2 text-xs font-quote italic text-[#10B981] tracking-tight">
-                  ← From insight to intelligence
+                   From insight to intelligence
                 </div>
               </div>
             </div>
@@ -595,38 +616,127 @@ export default function Home() {
         </section>
 
         {/* ----------------------------------------------------------------- */}
-        {/* SECTION 5: BENEFITS & FAQ (Staggered Full-Width Blocks)           */}
+        {/* SECTION 5: TRAVEL GRANT SUPPORT & ELIGIBILITY CRITERIA            */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="w-full space-y-8 sm:space-y-16 py-8 sm:py-12">
+        <section id="travel-grant" suppressHydrationWarning className="w-full space-y-10 sm:space-y-16 py-12 sm:py-20 scroll-mt-24">
           
-          {/* Benefits Block (Left Aligned) */}
-          <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-14 px-5 sm:px-12 md:px-20 text-left">
-            <div className="max-w-2xl space-y-2.5 sm:space-y-3">
-              <h3 className="font-heading font-bold text-white text-xl sm:text-2xl tracking-tight flex items-center gap-2.5 sm:gap-3 text-shadow-heading">
-                <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5 text-[#10B981]" />
-                Event Benefits
+          {/* Section Header */}
+          <div suppressHydrationWarning className="text-center space-y-2.5 px-4 sm:px-6 editorial-band-center py-8 sm:py-12">
+            <span className="text-[11px] sm:text-xs font-quote italic text-[#F59E0B] uppercase tracking-tight block">
+              Financial Support &amp; Participation Aid
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
+              <NarrationTyping text="Travel Grant Program" delay={100} speed={35} />
+            </h2>
+            <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body max-w-2xl mx-auto">
+              Empowering students and researchers traveling across India to attend in Mysuru.
+            </p>
+            <div className="copper-rule w-28 sm:w-36 mx-auto pt-3 sm:pt-4" />
+          </div>
+
+          {/* Travel Grant Overview & Scope (Left-Aligned Band) */}
+          <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-16 px-5 sm:px-12 md:px-20 text-left">
+            <div className="max-w-3xl space-y-4">
+              <div className="flex items-center gap-2.5 text-[#F59E0B]">
+                <Plane className="w-5 h-5" />
+                <span className="text-xs font-subheading font-bold uppercase tracking-tight">
+                  Support by NIE IEEE Student Branch GRSS
+                </span>
+              </div>
+              <h3 className="font-heading font-bold text-white text-2xl sm:text-3xl tracking-tight text-shadow-heading">
+                Travel Support for Eligible Participants
               </h3>
-              <p className="text-xs sm:text-sm font-quote italic text-[#10B981] tracking-tight text-shadow-body">
-                Certification, practical workflows, and real data access
-              </p>
-              <p className="text-xs sm:text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
-                Hands-on Google Earth Engine &amp; UAV workflows, official IEEE GRSS Certificates of Completion, curated geospatial datasets, and research mentorship with senior practitioners.
+              <p className="text-sm md:text-base text-white/90 font-sans font-normal leading-relaxed text-shadow-body">
+                To foster widespread participation from talented students, research scholars, and professionals across the country, travel grant support is offered for eligible attendees traveling to attend the three-day workshop organized by the <strong className="text-white font-subheading font-bold">NIE IEEE Student Branch GRSS</strong> in Mysuru, Karnataka.
               </p>
             </div>
           </div>
 
-          {/* FAQ Block (Left Aligned on mobile, Right on md+) */}
-          <div suppressHydrationWarning className="w-full editorial-band-right py-10 sm:py-14 px-5 sm:px-12 md:px-20 text-left md:text-right">
-            <div className="max-w-2xl md:ml-auto space-y-2.5 sm:space-y-3">
-              <h3 className="font-heading font-bold text-white text-xl sm:text-2xl tracking-tight flex items-center md:justify-end gap-2.5 sm:gap-3 text-shadow-heading">
-                Frequently Asked Questions
-                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7]" />
-              </h3>
-              <p className="text-xs sm:text-sm font-quote italic text-[#4FC3F7] tracking-tight text-shadow-body">
-                Participation prerequisites and eligibility details
+          {/* Eligibility Criteria Cards Grid */}
+          <div suppressHydrationWarning className="max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
+                <Award className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                IEEE Membership
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Applicants should indicate IEEE membership status and upload a valid IEEE / GRSS membership certificate with their application.
               </p>
-              <p className="text-xs sm:text-sm text-white/90 font-sans font-normal tracking-tight leading-relaxed text-shadow-body">
-                Open to undergraduate and postgraduate engineering students, agronomists, faculty researchers, and industry specialists interested in remote sensing, satellite analytics, and Geo-AI.
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#4FC3F7]/10 border border-[#4FC3F7]/30 flex items-center justify-center text-[#4FC3F7]">
+                <Globe className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                50+ km Distance Requirement
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Applicable strictly to verified participants traveling <strong className="text-white font-bold">50 km or more</strong> to the event venue in Mysuru.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 flex items-center justify-center text-[#10B981]">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                Registered Participant
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Applicants must be registered and confirmed participants of the event, committed to attending all three full days.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+                <FileText className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                Travel Expenses Only
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Grant covers actual travel expenses only (train/bus/transit). Accommodation, meals, and personal out-of-pocket costs are not included.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
+                <AlertCircle className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                Ticket Verification
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Valid digital travel tickets, original fare receipts, or signed vouchers must be submitted. Maximum limit: one grant per participant.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 flex items-center justify-center text-[#10B981]">
+                <Calendar className="w-4 h-4" />
+              </div>
+              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
+                2-Week Processing
+              </h4>
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
+                Reimbursement based on actual eligible expenses (up to approved cap) processed within 2 weeks post-event following audit and verification.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Terms & Conditions Notice */}
+          <div suppressHydrationWarning className="max-w-4xl mx-auto px-5 sm:px-8">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[rgba(245,158,11,0.06)] border border-[rgba(245,158,11,0.22)] text-left text-xs sm:text-sm text-[#A6B3A0] space-y-1.5 font-sans">
+              <p className="font-subheading font-bold text-[#F59E0B] flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4" /> Important Travel Grant Term
+              </p>
+              <p className="leading-relaxed">
+                NIE IEEE Student Branch GRSS retains the right to review, evaluate eligibility, and make the final decision regarding grant allocations in all cases. You can apply directly through the workshop registration form.
               </p>
             </div>
           </div>
@@ -634,59 +744,194 @@ export default function Home() {
         </section>
 
         {/* ----------------------------------------------------------------- */}
-        {/* SECTION 6: REGISTRATION (Full-Width Panoramic Ground Target CTA)   */}
+        {/* SECTION 5B: FREQUENTLY ASKED QUESTIONS (Complete Event FAQs)       */}
+        {/* ----------------------------------------------------------------- */}
+        <section id="faqs" suppressHydrationWarning className="w-full space-y-10 sm:space-y-16 py-12 sm:py-20 scroll-mt-24">
+          
+          <div suppressHydrationWarning className="text-center space-y-2.5 px-4 sm:px-6 editorial-band-center py-8 sm:py-12">
+            <span className="text-[11px] sm:text-xs font-quote italic text-[#4FC3F7] uppercase tracking-tight block">
+              Clarifications &amp; Details
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
+              <NarrationTyping text="Frequently Asked Questions" delay={100} speed={35} />
+            </h2>
+            <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body max-w-xl mx-auto">
+              Everything you need to know about participating in the workshop.
+            </p>
+            <div className="copper-rule w-28 sm:w-36 mx-auto pt-3 sm:pt-4" />
+          </div>
+
+          <div suppressHydrationWarning className="max-w-4xl mx-auto px-5 sm:px-8 space-y-4">
+            
+            {/* FAQ Item 1 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                What is the GeoIntelligence for Sustainable Precision Agriculture School?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                It is an intensive 3-day technical workshop organized by the NIE IEEE Student Branch GRSS Chapter. It bridges satellite remote sensing, UAV drone telemetry, and Artificial Intelligence (Geo-AI) to address critical real-world challenges in precision crop monitoring, soil assessment, and sustainable water irrigation.
+              </p>
+            </div>
+
+            {/* FAQ Item 2 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                Who can participate in the event?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Participation is open to undergraduate engineering students, postgraduate students, PhD research scholars, academic faculty members, young professionals, and industry specialists interested in satellite analytics, remote sensing, GIS, and precision agriculture.
+              </p>
+            </div>
+
+            {/* FAQ Item 3 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                Is there any registration fee?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Registration details, fee waivers, and subsidized rates for IEEE / GRSS members are outlined in the official registration portal. Please refer to the form link for exact category-wise registration specifications.
+              </p>
+            </div>
+
+            {/* FAQ Item 4 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                What will be provided to the participants?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Participants will receive official IEEE GRSS Certificates of Completion, hands-on lab access, curated geospatial and drone datasets, workshop technical kits, and expert mentorship from leading academic and industry researchers.
+              </p>
+            </div>
+
+            {/* FAQ Item 5 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                Will the event include hands-on training?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Yes! The school emphasizes applied experiential learning. You will work directly with Google Earth Engine (GEE), UAV drone mapping workflows, satellite spectral indices, and Machine Learning models for precision irrigation decision support.
+              </p>
+            </div>
+
+            {/* FAQ Item 6 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                What should I bring to the event?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Please bring a working laptop with charger for hands-on sessions (Google Chrome / modern browser installed), your institutional / organization ID card, a valid government-issued ID card, and relevant travel receipts if applying for the travel grant.
+              </p>
+            </div>
+
+            {/* FAQ Item 7 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left space-y-2.5 transition-all hover:border-[#4FC3F7]/50">
+              <h3 className="font-subheading font-bold text-white text-base sm:text-lg tracking-tight flex items-start gap-2.5">
+                <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-[#4FC3F7] shrink-0 mt-0.5" />
+                How will I know if my registration is confirmed?
+              </h3>
+              <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
+                Applications are reviewed based on the selection criteria (motivation statement and technical alignment). Shortlisted participants will receive an official confirmation email along with detailed onboarding instructions prior to the event dates.
+              </p>
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ----------------------------------------------------------------- */}
+        {/* SECTION 6: REGISTRATION & SELECTION CRITERIA                      */}
         {/* ----------------------------------------------------------------- */}
         <section id="register" suppressHydrationWarning className="w-full editorial-band-center py-16 sm:py-28 px-5 sm:px-6 text-center scroll-mt-24 relative">
           
-          <div suppressHydrationWarning className="max-w-3xl mx-auto space-y-6 sm:space-y-8 relative z-10">
+          <div suppressHydrationWarning className="max-w-4xl mx-auto space-y-10 sm:space-y-12 relative z-10">
             
             <div suppressHydrationWarning className="space-y-2.5 sm:space-y-3">
-              <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
-                Final Call for Participation
+              <span className="text-[11px] sm:text-xs font-quote italic text-[#10B981] uppercase tracking-tight block">
+                Official Registration Portal
               </span>
-              <h2 className="text-2xl sm:text-5xl md:text-6xl font-heading font-bold text-white tracking-tight leading-tight text-shadow-heading">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold text-white tracking-tight leading-tight text-shadow-heading">
                 <NarrationTyping text="Your view of Earth is about to change." delay={100} speed={30} />
               </h2>
               <p className="text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
-                From satellite vantage to ground resolution
+                Step into the future of Geointelligence and Sustainable Precision Agriculture.
               </p>
               <div className="copper-rule w-24 sm:w-32 mx-auto pt-2" />
             </div>
 
-            <div suppressHydrationWarning className="max-w-xl mx-auto space-y-1.5 sm:space-y-2 text-sm md:text-base font-sans font-normal text-white/90 tracking-tight text-shadow-body">
-              <p>You&apos;ve seen the planet from above.</p>
-              <p>You&apos;ve followed the data.</p>
-              <p>You&apos;ve explored the technology.</p>
-              <div className="pt-2">
-                <p className="text-white font-quote italic text-lg sm:text-xl tracking-tight text-shadow-cinema">
-                  <NarrationWords 
-                    text="Now it's your turn to step into the field." 
-                    delay={350} 
-                    staggerMs={28} 
-                  />
-                </p>
+            {/* Selection Criteria & Questions Notice */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-[rgba(11,15,19,0.80)] border border-[rgba(166,179,160,0.22)] backdrop-blur-md text-left space-y-5">
+              <div className="flex items-center gap-2.5 text-[#10B981]">
+                <FileText className="w-5 h-5" />
+                <h3 className="font-heading font-bold text-white text-lg sm:text-xl tracking-tight">
+                  Application &amp; Selection Criteria
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-white/85 font-sans leading-relaxed">
+                To maintain high instructional quality during hands-on lab sessions, seats are allocated through a competitive selection process. When completing the registration form, please be prepared to provide concise answers (200–300 words) for the following:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-[#A6B3A0] font-sans">
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>IEEE &amp; IEEE GRSS membership status</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>Key achievements or contributions to geoscience &amp; remote sensing</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>Motivation for attending the GeoIntelligence workshop</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>Expected academic, professional, and technical development</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>Software experience (ArcGIS, QGIS, Google Earth Engine, Python)</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                  <span>Personal expectations and outcomes from the 3 days</span>
+                </div>
+              </div>
+
+              {/* Required Documents Checklist */}
+              <div className="pt-3 border-t border-[rgba(166,179,160,0.18)]">
+                <span className="text-xs font-subheading font-bold text-white block mb-2">
+                  Documents required during registration:
+                </span>
+                <div className="flex flex-wrap gap-2 text-[11px] text-[#A6B3A0]">
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Valid Institutional / Company ID</span>
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Government ID</span>
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Resume / CV</span>
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">IEEE Certificate (if member)</span>
+                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Travel Grant Request (if eligible)</span>
+                </div>
               </div>
             </div>
 
-            <p className="text-xs sm:text-base text-white/85 font-sans font-normal max-w-lg mx-auto leading-relaxed tracking-tight text-shadow-body">
-              Join us and explore how <strong className="text-white font-subheading font-bold">satellites, UAVs, geospatial data, and AI</strong> are transforming the way we understand agriculture and our planet.
-            </p>
-
-            <div suppressHydrationWarning className="pt-1 sm:pt-2 text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
-              Look beyond the horizon and step into the world of Geo-AI.
-            </div>
-
             {/* Elegant Registration CTA Link with exact design requested */}
-            <div suppressHydrationWarning className="pt-4 sm:pt-6 flex justify-center">
+            <div suppressHydrationWarning className="pt-2 flex flex-col items-center gap-3">
               <a
                 href={REGISTRATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-sm sm:text-base tracking-tight shadow-2xl hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 sm:gap-3 no-underline group"
+                className="px-8 sm:px-10 py-4 rounded-2xl bg-[#adc278] text-black font-subheading font-bold text-sm sm:text-base tracking-tight shadow-2xl hover:bg-[#c0d48f] hover:scale-105 active:scale-95 transition-all flex items-center gap-3 no-underline group"
               >
                 <span className="text-black font-bold">Register</span>
-                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-black stroke-[2.5] transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-5 h-5 text-black stroke-[2.5] transition-transform group-hover:translate-x-1" />
               </a>
+              <span className="text-[11px] text-[#A6B3A0]/70 font-sans">
+                Requires commitment to participate across all three days.
+              </span>
             </div>
 
           </div>
