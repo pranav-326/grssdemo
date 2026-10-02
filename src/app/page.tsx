@@ -25,8 +25,8 @@ import {
   Sparkles
 } from "lucide-react";
 
-// Registration link destination (Google Form / Portal)
-const REGISTRATION_URL = "https://forms.gle/nie-grss-registration";
+// Registration link destination
+const REGISTRATION_URL = "https://www.evynte.com/e/grss-school-geointelligence-for-sustainable-precision-agriculture";
 
 // Institutional Logos in the navbar
 const INSTITUTIONAL_LOGOS = [
