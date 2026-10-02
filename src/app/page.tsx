@@ -32,6 +32,8 @@ const REGISTRATION_URL = "https://forms.gle/nie-grss-registration";
 const INSTITUTIONAL_LOGOS = [
   { src: "/logos/logo-4.png", alt: "The National Institute of Engineering, Mysuru" },
   { src: "/logos/logo-3.png", alt: "IEEE" },
+  { src: "/logos/ieee-bangalore-section.png", alt: "IEEE Bangalore Section" },
+  { src: "/logos/ieee-mysore-subsection.png", alt: "IEEE Mysore Subsection" },
   { src: "/logos/logo-2.png", alt: "IEEE GRSS" },
   { src: "/logos/logo-5.png", alt: "NISB Student Branch" },
   { src: "/logos/logo-1.png", alt: "NISB GRSS Chapter" },
@@ -591,18 +593,14 @@ export default function Home() {
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
               <NarrationTyping text="The Speakers" delay={100} speed={35} />
             </h2>
-            <p className="text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
-              <NarrationWords text="Learn from those shaping the future of Earth observation." delay={200} staggerMs={25} />
+            <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
+              <NarrationWords text="Perspectives from across the globe." delay={200} staggerMs={30} />
             </p>
             
             <div className="copper-rule w-20 sm:w-28 md:ml-auto my-2 sm:my-3" />
 
             <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl md:ml-auto">
-              Meet the <strong className="text-white font-subheading font-bold">experts, researchers, and practitioners</strong> bringing their experience in <span className="text-[#A6B3A0] font-subheading font-bold">Geoscience, Remote Sensing, Geo-AI, and Precision Agriculture</span> to the event.
-            </p>
-
-            <p className="text-sm md:text-base text-white/80 leading-relaxed font-sans font-normal tracking-tight text-shadow-body max-w-2xl md:ml-auto">
-              Through expert talks and hands-on sessions, gain insights from those working at the intersection of <strong className="text-white font-subheading font-bold">technology, data, and our planet</strong>. Explore their expertise, discover new perspectives, and learn from the minds driving modern Earth observation.
+              Hear from leading researchers, academicians and professionals representing prestigious institutions in India and around the world, bringing together diverse expertise across GeoIntelligence, Earth Observation, GeoAI and sustainable agriculture.
             </p>
 
             <div suppressHydrationWarning className="pt-2 sm:pt-3 text-xs font-quote italic text-[#A6B3A0] tracking-tight">
@@ -655,18 +653,6 @@ export default function Home() {
           {/* Eligibility Criteria Cards Grid */}
           <div suppressHydrationWarning className="max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             
-            <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
-                <Award className="w-4 h-4" />
-              </div>
-              <h4 className="font-subheading font-bold text-white text-base tracking-tight">
-                IEEE Membership
-              </h4>
-              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed">
-                Applicants should indicate IEEE membership status and upload a valid IEEE / GRSS membership certificate with their application.
-              </p>
-            </div>
-
             <div className="p-6 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md space-y-3 text-left hover:border-[#F59E0B]/50 transition-all">
               <div className="w-9 h-9 rounded-xl bg-[#4FC3F7]/10 border border-[#4FC3F7]/30 flex items-center justify-center text-[#4FC3F7]">
                 <Globe className="w-4 h-4" />
@@ -792,7 +778,7 @@ export default function Home() {
                 Is there any registration fee?
               </h3>
               <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
-                Registration details, fee waivers, and subsidized rates for IEEE / GRSS members are outlined in the official registration portal. Please refer to the form link for exact category-wise registration specifications.
+                No, there is no registration fee for the event. Participants can register free of cost through the registration portal. After the registration process, participants will be shortlisted based on the selection criteria, and only the selected participants will get the opportunity to attend and be part of the three-day GRSS School.
               </p>
             </div>
 
@@ -879,10 +865,6 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-[#A6B3A0] font-sans">
                 <div className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                  <span>IEEE &amp; IEEE GRSS membership status</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <ChevronRight className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
                   <span>Key achievements or contributions to geoscience &amp; remote sensing</span>
                 </div>
                 <div className="flex items-start gap-2">
@@ -912,7 +894,6 @@ export default function Home() {
                   <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Valid Institutional / Company ID</span>
                   <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Government ID</span>
                   <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Resume / CV</span>
-                  <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">IEEE Certificate (if member)</span>
                   <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Travel Grant Request (if eligible)</span>
                 </div>
               </div>
