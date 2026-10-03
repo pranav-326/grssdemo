@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { TargetReticle } from "@/components/TargetReticle";
 import { 
-  NarrationTyping, 
   NarrationWords, 
   NarrationLine 
 } from "@/components/NarrationText";
@@ -291,7 +290,7 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 1: HERO / INTRO (Full-Width Atmospheric Editorial Block)  */}
         {/* ----------------------------------------------------------------- */}
-        <section suppressHydrationWarning className="min-h-screen w-full flex flex-col justify-center items-center text-center px-4 sm:px-8 pt-32 sm:pt-40 pb-20 editorial-band-center">
+        <section suppressHydrationWarning className="min-h-screen w-full flex flex-col justify-center items-center text-center px-4 sm:px-8 pt-[19rem] sm:pt-40 pb-20 editorial-band-center">
           
           <div suppressHydrationWarning className="w-full max-w-5xl mx-auto space-y-10">
             
@@ -309,10 +308,10 @@ export default function Home() {
 
             {/* Narrative Theme Hook */}
             <div className="text-2xl sm:text-4xl md:text-5xl font-quote italic font-normal text-white leading-tight tracking-tight text-shadow-cinema">
-              <NarrationTyping text="From the world above us," delay={200} speed={36} />
+              <span>From the world above us,</span>
               <br />
               <span className="italic text-[#A6B3A0] font-normal">
-                <NarrationTyping text="to the fields beneath us." delay={1200} speed={36} />
+                <span>to the fields beneath us.</span>
               </span>
             </div>
 
@@ -381,7 +380,7 @@ export default function Home() {
                 Historical Heritage
               </span>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-                <NarrationTyping text="The National Institute of Engineering" delay={150} speed={25} />
+                <span>The National Institute of Engineering</span>
               </h2>
               <p className="text-sm sm:text-base font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 Eight decades of pioneering technical education in Mysuru
@@ -412,7 +411,7 @@ export default function Home() {
                 Global Network &amp; Student Chapter
               </span>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-                <NarrationTyping text="NIE IEEE Student Branch — GRSS" delay={200} speed={25} />
+                <span>NIE IEEE Student Branch — GRSS</span>
               </h2>
               <p className="text-sm sm:text-base font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 Bridging academic discovery and space-age remote sensing
@@ -439,7 +438,7 @@ export default function Home() {
           {/* Section Heading Banner */}
           <div suppressHydrationWarning className="text-center space-y-2.5 px-4 sm:px-6 editorial-band-center py-8 sm:py-10">
             <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-              <NarrationTyping text="The Schedule" delay={100} speed={35} />
+              <span>The Schedule</span>
             </h2>
             <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
               <NarrationWords text="Three Days. Three Perspectives. Three Leaps." staggerMs={28} delay={200} />
@@ -476,7 +475,7 @@ export default function Home() {
                 </div>
 
                 <h3 className="text-2xl sm:text-4xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-                  <NarrationTyping text="See the Earth Differently" delay={100} speed={25} />
+                  <span>See the Earth Differently</span>
                 </h3>
                 <p className="text-sm sm:text-base font-quote italic text-[#4FC3F7] tracking-tight text-shadow-body">
                   Geospatial Data Acquisition &amp; Earth Observation
@@ -517,7 +516,7 @@ export default function Home() {
                 </div>
 
                 <h3 className="text-2xl sm:text-4xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-                  <NarrationTyping text="Read What the Land Reveals" delay={100} speed={25} />
+                  <span>Read What the Land Reveals</span>
                 </h3>
                 <p className="text-sm sm:text-base font-quote italic text-[#10B981] tracking-tight text-shadow-body">
                   Geo-AI for Crop &amp; Soil Assessment
@@ -558,7 +557,7 @@ export default function Home() {
                 </div>
 
                 <h3 className="text-2xl sm:text-4xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-                  <NarrationTyping text="Turn Intelligence into Action" delay={100} speed={25} />
+                  <span>Turn Intelligence into Action</span>
                 </h3>
                 <p className="text-sm sm:text-base font-quote italic text-[#F59E0B] tracking-tight text-shadow-body">
                   Geo-AI for Water Management &amp; Precision Irrigation
@@ -591,7 +590,7 @@ export default function Home() {
               Academic Faculty &amp; Industry Practitioners
             </span>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-              <NarrationTyping text="The Speakers" delay={100} speed={35} />
+              <span>The Speakers</span>
             </h2>
             <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
               <NarrationWords text="Perspectives from across the globe." delay={200} staggerMs={30} />
@@ -624,7 +623,7 @@ export default function Home() {
               Financial Support &amp; Participation Aid
             </span>
             <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-              <NarrationTyping text="Travel Grant Program" delay={100} speed={35} />
+              <span>Travel Grant Program</span>
             </h2>
             <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body max-w-2xl mx-auto">
               Empowering students and researchers traveling across India to attend in Mysuru.
@@ -786,7 +785,7 @@ export default function Home() {
               Clarifications &amp; Details
             </span>
             <h2 className="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight text-shadow-heading">
-              <NarrationTyping text="Frequently Asked Questions" delay={100} speed={35} />
+              <span>Frequently Asked Questions</span>
             </h2>
             <p className="text-base sm:text-xl font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body max-w-xl mx-auto">
               Everything you need to know about participating in the workshop.
@@ -889,7 +888,7 @@ export default function Home() {
                 Official Registration Portal
               </span>
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold text-white tracking-tight leading-tight text-shadow-heading">
-                <NarrationTyping text="Your view of Earth is about to change." delay={100} speed={30} />
+                <span>Your view of Earth is about to change.</span>
               </h2>
               <p className="text-sm sm:text-lg font-quote italic text-[#A6B3A0] tracking-tight text-shadow-body">
                 Step into the future of Geointelligence and Sustainable Precision Agriculture.
@@ -967,9 +966,21 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer suppressHydrationWarning className="pt-10 sm:pt-12 pb-14 sm:pb-16 text-center text-xs font-sans font-normal text-[#A6B3A0]/70 space-y-2 border-t border-[rgba(166,179,160,0.18)] tracking-tight px-4">
+        <footer suppressHydrationWarning className="pt-10 sm:pt-12 pb-14 sm:pb-16 text-center text-xs font-sans font-normal text-[#A6B3A0]/70 space-y-4 border-t border-[rgba(166,179,160,0.18)] tracking-tight px-4">
           <p>© 2026 The National Institute of Engineering (NIE) IEEE Student Branch — GRSS Chapter.</p>
           <p className="text-[11px] text-[#A6B3A0]/50">Mysuru, Karnataka, India</p>
+          <div className="pt-3 space-y-2 text-xs sm:text-sm text-[#A6B3A0]">
+            <p className="font-subheading font-bold text-white">For queries, contact</p>
+            <a href="mailto:grssniesbc@gmail.com" className="block hover:text-white transition-colors">
+              grssniesbc@gmail.com
+            </a>
+            <a href="tel:+918660318339" className="block hover:text-white transition-colors">
+              Sagar Kumar Singh: +91 86603 18339
+            </a>
+            <a href="tel:+919035434720" className="block hover:text-white transition-colors">
+              Mohammed Mansooruddin: +91 90354 34720
+            </a>
+          </div>
         </footer>
 
       </div>
