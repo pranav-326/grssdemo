@@ -975,10 +975,10 @@ export default function Home() {
               grssniesbc@gmail.com
             </a>
             <a href="tel:+918660318339" className="block hover:text-white transition-colors">
-              Sagar Kumar Singh: +91 86603 18339
+              Mohammed Mansooruddin: +91 90354 34720
             </a>
             <a href="tel:+919035434720" className="block hover:text-white transition-colors">
-              Mohammed Mansooruddin: +91 90354 34720
+              Sagar Kumar Singh: +91 86603 18339
             </a>
           </div>
         </footer>
