@@ -650,6 +650,53 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Distance-Based Travel Grant Table */}
+          <div suppressHydrationWarning className="max-w-4xl mx-auto px-5 sm:px-8">
+            <div className="p-5 sm:p-7 rounded-2xl bg-[rgba(11,15,19,0.75)] border border-[rgba(166,179,160,0.18)] backdrop-blur-md text-left">
+              <div className="flex items-center gap-2.5 mb-5">
+                <FileText className="w-5 h-5 text-[#F59E0B]" />
+                <h3 className="font-heading font-bold text-white text-xl sm:text-2xl tracking-tight">
+                  Travel Grant Amounts
+                </h3>
+              </div>
+              <div className="overflow-hidden rounded-xl border border-white/10">
+                <table className="w-full text-left font-sans text-sm sm:text-base">
+                  <thead className="bg-[#F59E0B]/10 text-[#F59E0B]">
+                    <tr>
+                      <th scope="col" className="px-4 sm:px-6 py-3 font-subheading font-bold">Distance (km)</th>
+                      <th scope="col" className="px-4 sm:px-6 py-3 font-subheading font-bold">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10 text-white/85">
+                    <tr>
+                      <td className="px-4 sm:px-6 py-3">50–150</td>
+                      <td className="px-4 sm:px-6 py-3">Up to ₹500</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 sm:px-6 py-3">150–200</td>
+                      <td className="px-4 sm:px-6 py-3">Up to ₹800</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 sm:px-6 py-3">200–500</td>
+                      <td className="px-4 sm:px-6 py-3">Up to ₹1,500</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 sm:px-6 py-3">500–800</td>
+                      <td className="px-4 sm:px-6 py-3">Up to ₹2,000</td>
+                    </tr>
+                    <tr>
+                      <td className="px-4 sm:px-6 py-3">More than 800</td>
+                      <td className="px-4 sm:px-6 py-3">Up to ₹3,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-4 text-xs sm:text-sm text-[#A6B3A0] font-sans leading-relaxed">
+                Travel grants are subject to the applicable terms and conditions. The final decision rests with the organising committee.
+              </p>
+            </div>
+          </div>
+
           {/* Eligibility Criteria Cards Grid */}
           <div suppressHydrationWarning className="max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             
@@ -789,7 +836,7 @@ export default function Home() {
                 What will be provided to the participants?
               </h3>
               <p className="text-xs sm:text-sm text-white/85 font-sans font-normal leading-relaxed pl-6 sm:pl-7">
-                Participants will receive official IEEE GRSS Certificates of Completion, hands-on lab access, curated geospatial and drone datasets, workshop technical kits, and expert mentorship from leading academic and industry researchers.
+                Participants will receive official IEEE GRSS Certificates of Completion, access to hands-on laboratory sessions, curated geospatial and drone datasets, workshop technical kits, and expert mentorship from leading academic and industry researchers. Participants will also be provided with meals and refreshments throughout the event, along with exclusive event goodies.
               </p>
             </div>
 
