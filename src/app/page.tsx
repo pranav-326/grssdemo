@@ -364,13 +364,13 @@ export default function Home() {
         {/* ----------------------------------------------------------------- */}
         {/* SECTION 2: ABOUT NIE & ABOUT NISB-GRSS (Alternating Left / Right) */}
         {/* ----------------------------------------------------------------- */}
-        <section id="about" suppressHydrationWarning className="w-full space-y-16 sm:space-y-32 scroll-mt-24 py-10 sm:py-16">
+        <section id="about" suppressHydrationWarning className="about-narrative w-full space-y-16 sm:space-y-32 scroll-mt-24 py-10 sm:py-16">
           
           {/* Part 1: About NIE (Left-Aligned Full-Width Block) */}
           <div suppressHydrationWarning className="w-full editorial-band-left py-12 sm:py-24 px-5 sm:px-12 md:px-20 relative overflow-hidden">
             {/* Watermark Year: Subtle on desktop, hidden or non-overlapping on mobile */}
             <div 
-              className="hidden md:block absolute right-6 sm:right-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-white/[0.03] transition-transform duration-100 ease-out"
+              className="about-watermark hidden md:block absolute right-6 sm:right-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-white/[0.03] transition-transform duration-100 ease-out"
             >
               1946
             </div>
@@ -401,12 +401,12 @@ export default function Home() {
           <div suppressHydrationWarning className="w-full editorial-band-right py-12 sm:py-24 px-5 sm:px-12 md:px-20 relative overflow-hidden">
             {/* Watermark Logo: Subtle on desktop, hidden on mobile */}
             <div 
-              className="hidden md:block absolute left-6 sm:left-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-[#A6B3A0]/[0.03] transition-transform duration-100 ease-out"
+              className="about-watermark hidden md:block absolute left-6 sm:left-16 top-1/2 -translate-y-1/2 select-none pointer-events-none text-7xl sm:text-9xl md:text-[11rem] font-heading font-bold text-[#A6B3A0]/[0.03] transition-transform duration-100 ease-out"
             >
               GRSS
             </div>
 
-            <div className="max-w-3xl md:ml-auto space-y-3 sm:space-y-4 relative z-10 text-left md:text-right">
+            <div className="about-nisb-content max-w-3xl md:ml-auto space-y-3 sm:space-y-4 relative z-10 text-left md:text-right">
               <span className="text-[11px] sm:text-xs font-quote italic text-[#A6B3A0] uppercase tracking-tight block">
                 Global Network &amp; Student Chapter
               </span>

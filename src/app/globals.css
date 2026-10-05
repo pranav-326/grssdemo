@@ -258,6 +258,24 @@ blockquote, q, .quote, .font-quote {
   }
 }
 
+/* Keep the desktop watermark treatment from colliding with content at tablet widths. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .about-narrative .about-watermark {
+    display: none;
+  }
+
+  .about-narrative .about-nisb-content {
+    margin-left: 0;
+    max-width: 48rem;
+    text-align: left;
+  }
+
+  .about-narrative .about-nisb-content .copper-rule {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 /* MapLibre Canvas Customization */
 .maplibregl-canvas {
   outline: none;
