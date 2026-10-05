@@ -458,7 +458,7 @@ export default function Home() {
             {/* Day 1: Aligned to the LEFT (Stage 1 Observation · Sky Blue) */}
             <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                className="hidden md:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#4FC3F7]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden lg:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#4FC3F7]/[0.05] transition-transform duration-100 ease-out"
               >
                 01
               </div>
@@ -499,7 +499,7 @@ export default function Home() {
             {/* Day 2: Aligned to the RIGHT on desktop, natural on mobile (Stage 2 Insight · Canopy Green) */}
             <div suppressHydrationWarning className="w-full editorial-band-right py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                className="hidden md:block absolute left-8 sm:left-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#10B981]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden lg:block absolute left-8 sm:left-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#10B981]/[0.05] transition-transform duration-100 ease-out"
               >
                 02
               </div>
@@ -540,7 +540,7 @@ export default function Home() {
             {/* Day 3: Aligned to the LEFT (Stage 3 Action · Amber) */}
             <div suppressHydrationWarning className="w-full editorial-band-left py-10 sm:py-18 px-5 sm:px-12 md:px-20 relative overflow-hidden">
               <div 
-                className="hidden md:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#F59E0B]/[0.05] transition-transform duration-100 ease-out"
+                className="hidden lg:block absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 select-none pointer-events-none text-8xl sm:text-9xl md:text-[13rem] font-heading font-bold text-[#F59E0B]/[0.05] transition-transform duration-100 ease-out"
               >
                 03
               </div>
@@ -971,8 +971,8 @@ export default function Home() {
           <p className="text-[11px] text-[#A6B3A0]/50">Mysuru, Karnataka, India</p>
           <div className="pt-3 space-y-2 text-xs sm:text-sm text-[#A6B3A0]">
             <p className="font-subheading font-bold text-white">For queries, contact</p>
-            <a href="mailto:grssniesbc@gmail.com" className="block hover:text-white transition-colors">
-              grssniesbc@gmail.com
+            <a href="mailto:grss.school.2026@gmail.com" className="block hover:text-white transition-colors">
+              grss.school.2026@gmail.com
             </a>
             <a href="tel:+918660318339" className="block hover:text-white transition-colors">
               Mohammed Mansooruddin: +91 90354 34720
